@@ -5,9 +5,10 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 class UserProfile(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    bio = models.TextField(max_length=1000)
-    avatar = models.CharField(max_length=100, default='')
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    bio = models.TextField(max_length=1000, blank=True)
+    avatar = models.CharField(max_length=100, blank=True)
+    birth_date = models.DateField(null=True, blank=True)
 
 class Product(models.Model):
     description = models.TextField(max_length=1000)
