@@ -60,15 +60,15 @@ def register(request):
         profile_form = ProfileForm(request.POST)
         if user_form.is_valid() and profile_form.is_valid() and user_form.cleaned_data['password'] == user_form.cleaned_data['password_confirm']:
             user = user_form.save()
-            user_profile = profile_form.save(commit=False)
-            user_profile.user = user
-            user_profile.save()
+            profile = profile_form.save(commit=False)
+            profile.user = user
+            profile.save()
             #login(request, user)
             messages.success(request, f"Your profile was successfully created!")
             return redirect('home') #fix me
     else:
-            user_form = UserForm(request.POST)
-            profile_form = ProfileForm(request.POST)
+            user_form = UserForm()
+            profile_form = ProfileForm()
             messages.error(request, ('Please correct the error below.'))
     return render(request, 'register.html', { #fix me redirect to registration page
             'user_form': user_form,
