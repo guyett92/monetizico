@@ -13,6 +13,7 @@ import uuid
 import boto3
 from django.dispatch import receiver
 from .forms import ProfileForm, UserForm
+from .models import User
 
 #S3_BASE_URL = ""
 #BUCKET = ""
@@ -60,7 +61,7 @@ def register(request):
         if user_form.is_valid() and profile_form.is_valid() and user_form.cleaned_data['password'] == user_form.cleaned_data['password_confirm']:
             user = user_form.save()
             user_profile = profile_form.save(commit=False)
-            user_profile.user = user 
+            user_profile.user = user
             user_profile.save()
             #login(request, user)
             messages.success(request, f"Your profile was successfully created!")
