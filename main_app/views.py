@@ -57,7 +57,7 @@ def register(request):
     if request.method == 'POST':
         user_form = UserForm(request.POST)
         profile_form = ProfileForm(request.POST)
-        if user_form.is_valid() and profile_form.is_valid():
+        if user_form.is_valid() and profile_form.is_valid() and user_form.cleaned_data['password'] == user_form.cleaned_data['password_confirm']:
             user = user_form.save()
             user_profile = profile_form.save(commit=False)
             user_profile.user = user 
