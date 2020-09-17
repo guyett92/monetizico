@@ -10,6 +10,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from botocore.exceptions import ClientError
 import uuid
 import boto3
+from django.dispatch import receiver
 
 #S3_BASE_URL = ""
 #BUCKET = ""
