@@ -38,13 +38,15 @@ def update_product_post():
 def about():
   pass 
 
-def user_profile(get):
-  pass
+def profile(get):
+  
 
-def update_user_profile():
-  pass
+def update_profile():
+  user = User.objects.get(pk=user_id)
+  user.profile.bio = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit...'
+  user.save()
 
-def delete_user_profile():
+def delete_profile():
   pass
 
 def register():
