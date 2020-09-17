@@ -14,7 +14,58 @@
         </title>
     </head>
     <body>
-        {% block body %}
-        {% endblock %}
+        <nav class="navbar is-warning" role="navigation" aria-label="main navigation">
+            <div class="navbar-brand">
+                <a class="navbar-item" href="">
+                    LOGO IMAGE HERE
+                </a>
+                <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </a>
+            </div>
+            <!-- WILL NEED TO USE JAVASCRIPT TO TOGGLE BURGER AND MENU -->
+            <div id="navbarBasicExample" class="navbar-menu">
+                <div class="navbar-start">
+                    <a class="navbar-item">HOME</a>
+                    <div class="navbar-item has-dropdown is-hoverable">
+                        <a class="navbar-link">MORE</a>
+                        <div class="navbar-dropdown">
+                            <a class="navbar-item">ABOUT</a>
+                            <a class="navbar-item">CONTACT</a>
+                            <hr class="navbar-divider">
+                            <a class="navbar-item">YOUR PROFILE</a>
+                        </div>
+                    </div>
+                    <form class="navbar-item">
+                        <input type="text" name="search">
+                        <input type="submit" value="Search">
+                    </form>
+                </div>
+                <div class="navbar-end">
+                    <div class="navbar-item">
+                        <div class="buttons">
+                            <a class="button is-primary">
+                                <strong>Sign Up</strong>
+                            </a>
+                            <a class="button is-info">
+                                <strong>Log In</strong>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>   
+        </nav>
+        <div class="content">
+            {% block body %}
+            {% endblock %}
+        </div>
+        <footer class="footer">
+            <div class="content has-text-centered">
+                <h1>SITEMAP</h1>
+                <p>Copyright Monetizico 2020</p>
+            </div>
+        </footer>
     </body>
 </html>
