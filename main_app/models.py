@@ -14,17 +14,16 @@ class Product(models.Model):
     name = models.CharField(max_length=100)
     price = models.IntegerField()
     tag = models.CharField(max_length=25)
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
-
-class Cart(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    products = models.ManyToManyField(Product)
-    # total = calculated from price in Product model; or do it in the view
 
 class Post(models.Model):
     exp_date = models.DateField(default=(date.today()+timedelta(days=30)).isoformat()) 
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     seller = models.ForeignKey(User, on_delete=models.CASCADE)
+
+class Cart(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    products = models.ManyToManyField(Product)
+    # total = calculated from price in Product model; or do it in the view
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
