@@ -22,7 +22,6 @@ def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
 
 
-
 class Product(models.Model):
     description = models.TextField(max_length=1000)
     name = models.CharField(max_length=100)
