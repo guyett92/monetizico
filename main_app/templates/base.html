@@ -28,14 +28,14 @@
             <!-- WILL NEED TO USE JAVASCRIPT TO TOGGLE BURGER AND MENU -->
             <div id="navbarBasicExample" class="navbar-menu">
                 <div class="navbar-start">
-                    <a class="navbar-item">HOME</a>
+                    <a class="navbar-item" href="{% url 'home' %}">HOME</a>
                     <div class="navbar-item has-dropdown is-hoverable">
                         <a class="navbar-link">MORE</a>
                         <div class="navbar-dropdown">
-                            <a class="navbar-item">ABOUT</a>
+                            <a class="navbar-item" href="{% url 'about' %}">ABOUT</a>
                             <a class="navbar-item">CONTACT</a>
                             <hr class="navbar-divider">
-                            <a class="navbar-item">YOUR PROFILE</a>
+                            <a class="navbar-item" href="{% url 'profile' %}">YOUR PROFILE</a>
                         </div>
                     </div>
                     <form class="navbar-item">
@@ -46,7 +46,7 @@
                 <div class="navbar-end">
                     <div class="navbar-item">
                         <div class="buttons">
-                            <a class="button is-primary">
+                            <a class="button is-primary" href="#">
                                 <strong>Sign Up</strong>
                             </a>
                             <a class="button is-info">

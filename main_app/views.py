@@ -38,11 +38,11 @@ def delete_product_post():
 def update_product_post():
   pass
 
-def about():
+def about(request):
   return render(request, 'about.html') 
 
-def profile(get):
-  pass
+def profile(request):
+  return render(request, 'profile.html') 
 
 def update_profile():
   pass
@@ -50,8 +50,6 @@ def update_profile():
 def delete_profile():
   pass
 
-def registration_form(request):
-  return render(request, 'register.html') 
 
 def register(request):
 
