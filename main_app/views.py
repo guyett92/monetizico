@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.http.response import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
-from .models import Product, Cart, Photo, Post
+from .models import Product, Cart, Photo, Post, User
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from django.contrib.auth import login
@@ -17,7 +17,6 @@ import boto3
 import stripe
 from django.dispatch import receiver
 from .forms import ProfileForm, UserForm
-from .models import User
 
 #S3_BASE_URL = ""
 #BUCKET = ""
@@ -27,19 +26,43 @@ from .models import User
 def home(request):
   return render(request, 'home.html')
 
-def product_detail(request, product_id):
+class AddProduct(LoginRequiredMixin, CreateView):
+  model = Product
+  fields = ['name', 'price','description', 'tag']
+
+  def form_valid(self, form):
+    form.instance.seller = self.request.user
+    return super().form_valid(form)
+    
+def update_product():
   pass
 
-def product(get):
+def delete_product():
   pass
 
-def add_product_post(post):
+def post_detail(request, post_id):
   pass
 
-def delete_product_post():
+class post_index():
   pass
 
-def update_product_post():
+class AddPost(LoginRequiredMixin, CreateView):
+  model = Post
+  fields = ['product']
+  
+  def get_form(self, form_class=None):
+    form = super().get_form(form_class=None)
+    form.fields['product'].queryset = form.fields['product'].queryset.filter(seller = self.request.user)
+    return form
+    
+  def form_valid(self, form):
+    form.instance.user = self.request.user
+    return super().form_valid(form)
+
+def update_post():
+  pass
+
+def delete_post():
   pass
 
 def about(request):
@@ -71,7 +94,7 @@ def register(request):
             profile = profile_form.save(commit=False)
             profile.user = user
             profile.save()
-            #login(request, user)
+            login(request, user)
             messages.success(request, f"Your profile was successfully created!")
             return redirect('home') #fix me
     else:
@@ -113,6 +136,7 @@ def create_checkout_session(request):
     domain_url = 'http://localhost:8000/'
     stripe.api_key = settings.STRIPE_SECRET_KEY
     try:
+      product = Product.objects.get(id=2)
       checkout_session = stripe.checkout.Session.create(
         success_url = domain_url + 'success?session_id={CHECKOUT_SESSION_ID}',
         cancel_url = domain_url + 'cancelled/',
@@ -120,10 +144,10 @@ def create_checkout_session(request):
         mode = 'payment',
         line_items = [
           {
-            'name': 'Used Book',
+            'name': product.name,
             'quantity': 1,
             'currency': 'usd',
-            'amount': 2000,
+            'amount': product.price * 100, #multiply by 100 d/t doesn't recognize decimal
           }
         ]
       )

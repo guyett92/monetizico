@@ -2,6 +2,8 @@ from django.db import models
 from datetime import date, timedelta
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
+from django.urls import reverse
+
 
 # Create your models here.
 
@@ -16,11 +18,19 @@ class Product(models.Model):
     name = models.CharField(max_length=100)
     price = models.IntegerField()
     tag = models.CharField(max_length=25)
+    seller = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def get_absolute_url(self):
+        return reverse('home')
+        #fix me
+
+
 
 class Post(models.Model):
     exp_date = models.DateField(default=(date.today()+timedelta(days=30)).isoformat()) 
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    seller = models.ForeignKey(User, on_delete=models.CASCADE)
+    quantitiy = models.IntegerField()
+    active = models.BooleanField(default=True)
 
 class Cart(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
