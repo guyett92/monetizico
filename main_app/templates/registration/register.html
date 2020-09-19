@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}
+    Monetizico | Home
+{% endblock %}
+{% block content %}
+<div class="register">
+  <h1>REGISTER YOUR ACCOUNT</h1>
+  <form class="register-form" method="post">
+      {% csrf_token %}
+      <p><label for="id_username">Username:</label> 
+      <br />
+      <input type="text" name="username" maxlength="150" required id="id_username"> 
+      <br />
+      <span class="helptext"><small>(Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.)</small></span></p>
+      <br />
+      <p><label for="id_first_name">First name:</label> 
+      <br />
+      <input type="text" name="first_name" maxlength="150" id="id_first_name"></p>
+      <br />
+      <p><label for="id_last_name">Last name:</label> 
+      <br />
+      <input type="text" name="last_name" maxlength="150" id="id_last_name"></p>
+      <br />
+      <p><label for="id_email">Email address:</label> 
+      <br />
+      <input type="email" name="email" maxlength="254" id="id_email"></p>
+      <br />
+      <p><label for="id_password">Password:</label> 
+      <br />  
+      <input type="password" name="password" required id="id_password"></p>
+      <br />
+      <p><label for="id_password_confirm">Password confirm:</label> 
+      <br />
+      <input type="password" name="password_confirm" required id="id_password_confirm"></p>
+      <br />
+      <p><label for="id_avatar">Avatar:</label> 
+      <br />  
+      <input type="text" name="avatar" maxlength="100" id="id_avatar"></p>
+      <br />
+      <p><label for="id_birth_date">Birth date:</label> 
+      <br />  
+      <input type="date" name="birth_date" id="id_birth_date"></p>
+      <br />
+      <p><label for="id_bio">Bio:</label> 
+      <br />
+      <textarea name="bio" cols="40" rows="10" maxlength="1000" id="id_bio">
+      </textarea></p>
+      <br />
+      <button type="submit">Save changes</button>
+    </form>
+</div>
+{% endblock %}
