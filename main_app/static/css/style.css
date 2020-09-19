@@ -14,8 +14,66 @@ body {
     flex-direction: column;
 }
 
+.navbar-menu, .navbar-brand {
+    background-color: var(--red) !important;
+}
+
+#searchbar {
+    height: 25px;
+    width: 350px;
+    margin: 10px;
+}
+
+#searchbutton {
+    margin: 10px;
+    background-color: var(--yellow) !important;
+    color: var(--red) !important;
+    border-radius: 5px;
+    height: 30px;
+    width: 70px;
+}
+
+#signup {
+    background-color: var(--dblue) !important;
+    color: var(--yellow) !important;
+}
+
+#login {
+    background-color: var(--yellow) !important;
+    color: var(--dblue) !important;
+}
+
 .content {
     flex-grow: 1;
+}
+
+#carousel {
+    background-color: var(--lblue) !important;
+}
+
+.register {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.register>h1 {
+    font-size: 50px;
+    font-weight: 400;
+    text-decoration: underline;
+}
+
+.register>button {
+    margin: 0 auto;
+}
+
+input[type=text], input[type=email], input[type=password], input[type=date], textarea, button {
+    width: 100%;
+}
+
+.input {
+    width: 400px;
 }
 
 .footer {
@@ -24,5 +82,6 @@ body {
 
 .fixed-sidebar {
     top: 0.75em;
-    /* background-color: var(--red) !important; */
+    background-color: var(--lblue) !important;
+    color: var(--yellow) !important;
 }

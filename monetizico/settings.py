@@ -100,6 +100,14 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+PASSWORD_HASHERS = [
+    'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
+    'django.contrib.auth.hashers.BCryptPasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
+    'django.contrib.auth.hashers.Argon2PasswordHasher',
+]
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
@@ -121,3 +129,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 LOGIN_REDIRECT_URL = '/' #fix me
 LOGOUT_REDIRECT_URL = '/' #fix me
+
+STRIPE_PUBLISHABLE_KEY = 'pk_test_51HRSLCLOlRhWszAlat6npafXudcrNO1N0R9HYd495xBtLBDn1i13mANYb3JLWOa4DHwxk5DS4YNCct1gMZ9sdiIt001CKJMdUz'
+STRIPE_SECRET_KEY = 'sk_test_51HRSLCLOlRhWszAlwKUgBAeqsEzqsH4p3pAo5CF3tipwvCyuiMxfUFNKJ9QE0lbUHxEzVlybNrriTdpqfbS7QHK100fA7kexcw'

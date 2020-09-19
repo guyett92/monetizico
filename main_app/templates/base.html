@@ -28,28 +28,28 @@
             <!-- WILL NEED TO USE JAVASCRIPT TO TOGGLE BURGER AND MENU -->
             <div id="navbarBasicExample" class="navbar-menu">
                 <div class="navbar-start">
-                    <a class="navbar-item" href="{% url 'home' %}">HOME</a>
                     <div class="navbar-item has-dropdown is-hoverable">
-                        <a class="navbar-link">MORE</a>
+                        <a class="navbar-link">Hi, John</a>
                         <div class="navbar-dropdown">
-                            <a class="navbar-item" href="{% url 'about' %}">ABOUT</a>
-                            <a class="navbar-item">CONTACT</a>
+                            <a class="navbar-item" href="{% url 'about' %}">ABOUT US</a>
+                            <a class="navbar-item">CONTACT US</a>
                             <hr class="navbar-divider">
-                            <a class="navbar-item" href="{% url 'profile' %}">YOUR PROFILE</a>
+                            <a class="navbar-item" href="">YOUR PROFILE</a>
+                            <a class="navbar-item" href="">YOUR CART</a>
                         </div>
                     </div>
                     <form class="navbar-item">
-                        <input type="text" name="search">
-                        <input type="submit" value="Search">
+                        <input id="searchbar" type="text" name="search">
+                        <input id="searchbutton" type="submit" value="Search">
                     </form>
                 </div>
                 <div class="navbar-end">
                     <div class="navbar-item">
                         <div class="buttons">
-                            <a class="button is-primary" href="{% url 'register' %}">
+                            <a id="signup" class="button" href="{% url 'register' %}">
                                 <strong>Sign Up</strong>
                             </a>
-                            <a class="button is-info">
+                            <a id="login" class="button">
                                 <strong>Log In</strong>
                             </a>
                         </div>
