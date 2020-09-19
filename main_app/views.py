@@ -57,7 +57,14 @@ def register(request):
         user_form = UserForm(request.POST)
         profile_form = ProfileForm(request.POST)
         if user_form.is_valid() and profile_form.is_valid() and user_form.cleaned_data['password'] == user_form.cleaned_data['password_confirm']:
-            user = user_form.save()
+            user = User.objects.create_user(
+              username = user_form.cleaned_data['username'],
+              email = user_form.cleaned_data['email'],
+              password = user_form.cleaned_data['password'],
+              first_name = user_form.cleaned_data['first_name'],
+              last_name = user_form.cleaned_data['last_name']
+            )
+            user.save()
             profile = profile_form.save(commit=False)
             profile.user = user
             profile.save()
@@ -68,7 +75,7 @@ def register(request):
             user_form = UserForm()
             profile_form = ProfileForm()
             messages.error(request, ('Please correct the error below.'))
-    return render(request, 'register.html', { #fix me redirect to registration page
+    return render(request, 'registration/register.html', { #fix me redirect to registration page
             'user_form': user_form,
             'profile_form': profile_form
     })
