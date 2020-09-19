@@ -1,3 +1,10 @@
+:root {
+    --yellow: #f9c80e;
+    --dblue: #004e89;
+    --lblue: #1A659E;
+    --red: #AD1F2D;
+}
+
 html, body {
     height: 100%
 }
@@ -13,4 +20,9 @@ body {
 
 .footer {
     margin-top: auto;
+}
+
+.fixed-sidebar {
+    top: 0.75em;
+    /* background-color: var(--red) !important; */
 }

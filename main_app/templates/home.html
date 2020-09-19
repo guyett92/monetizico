@@ -4,55 +4,57 @@
 {% endblock %}
 {% block content %}
 
-<div class="content">
+<section class="section">
     <div class="tile is-ancestor">
-        <div class="tile is-parent is-2">
-            <p class="tile is-child">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates qui doloremque id ipsam, cum, magnam soluta modi neque non placeat ut quos earum explicabo mollitia, quia natus cumque. Exercitationem, voluptas?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo nisi sint corrupti officiis ullam ut sed ea eaque! Cum a nihil officiis earum sint hic harum dolores eius ullam accusantium.</p>
+        <div class="tile is-parent is-2 notification fixed-sidebar">
+            <p class="tile is-child">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates qui doloremque id ipsam, cum, magnam soluta modi neque non placeat ut quos earum explicabo mollitia, quia natus cumque. Exercitationem, voluptas?
+            </p>
         </div>
+        <div class="tile is-vertical is-parent">
+            <div class="tile is-12 notification is-danger">
+                <div class="tile">
+                    Carousel
+                </div>
+            </div>
         <!-- SOMEHOW PUT CAROUSEL HERE ABOVE THESE 4 COLUMNS OF TWO ITEMS EACH -->
-        <div class="tile is-parent is-vertical is-2">
-            <div class="tile is-child">
-                ITEM 1
-            </div>
-            <div class="tile is-child">
-                ITEM 2
-            </div>
-        </div>
-        <div class="tile is-parent is-vertical is-2">
-            <div class="tile is-child">
-                ITEM 3
-            </div>
-            <div class="tile is-child">
-                ITEM 4
-            </div>
-        </div>
-        <div class="tile is-parent is-vertical is-2">
-            <div class="tile is-child">
-                ITEM 5
-            </div>
-            <div class="tile is-child">
-                ITEM 6
-            </div>
-        </div>
-        <div class="tile is-parent is-vertical is-2">
-            <div class="tile is-child">
-                ITEM 7
-            </div>
-            <div class="tile is-child">
-                ITEM 8
+            <div class="tile is-ancestor">
+                <div class="tile is-parent is-vertical is-3">
+                    <div class="tile is-child notification is-warning">
+                        ITEM 1
+                    </div>
+                    <div class="tile is-child notification is-warning">
+                        ITEM 2
+                        
+                    </div>
+                </div>
+                <div class="tile is-parent is-vertical is-3">
+                    <div class="tile is-child notification is-warning">
+                        ITEM 3
+                    </div>
+                    <div class="tile is-child notification is-warning">
+                        ITEM 4
+                    </div>
+                </div>
+                <div class="tile is-parent is-vertical is-3">
+                    <div class="tile is-child notification is-warning">
+                        ITEM 5
+                    </div>
+                    <div class="tile is-child notification is-warning">
+                        ITEM 6
+                    </div>
+                </div>
+                <div class="tile is-parent is-vertical is-3">
+                    <div class="tile is-child notification is-warning">
+                        ITEM 7
+                    </div>
+                    <div class="tile is-child notification is-warning">
+                        ITEM 8
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
-        
-            
-                
-                
-            
-        
-    </div>
-</div>
-        
+</section>                
 
 {% endblock %}
