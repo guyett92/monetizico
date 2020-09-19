@@ -75,7 +75,7 @@ def register(request):
             user_form = UserForm()
             profile_form = ProfileForm()
             messages.error(request, ('Please correct the error below.'))
-    return render(request, 'register.html', { #fix me redirect to registration page
+    return render(request, 'registration/register.html', { #fix me redirect to registration page
             'user_form': user_form,
             'profile_form': profile_form
     })
