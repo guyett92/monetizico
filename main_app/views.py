@@ -2,21 +2,21 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.http.response import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from django.conf import settings
-from .models import Product, Cart, Photo, Post, User
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.conf import settings
 from django.contrib.auth import login
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from botocore.exceptions import ClientError
+from django.dispatch import receiver
+from .models import Product, Cart, Photo, Post, User
+from .forms import ProfileForm, UserForm
 import uuid
 import boto3
 import stripe
-from django.dispatch import receiver
-from .forms import ProfileForm, UserForm
 
 #S3_BASE_URL = ""
 #BUCKET = ""
@@ -96,12 +96,12 @@ def register(request):
             profile.save()
             login(request, user)
             messages.success(request, f"Your profile was successfully created!")
-            return redirect('home') #fix me
+            return redirect('home') #FIXME: redirect to profile page
     else:
             user_form = UserForm()
             profile_form = ProfileForm()
             messages.error(request, ('Please correct the error below.'))
-    return render(request, 'registration/register.html', { #fix me redirect to registration page
+    return render(request, 'registration/register.html', {
             'user_form': user_form,
             'profile_form': profile_form
     })
@@ -136,7 +136,7 @@ def create_checkout_session(request):
     domain_url = 'http://localhost:8000/'
     stripe.api_key = settings.STRIPE_SECRET_KEY
     try:
-      product = Product.objects.get(id=2)
+      product = Product.objects.get(id=1)
       checkout_session = stripe.checkout.Session.create(
         success_url = domain_url + 'success?session_id={CHECKOUT_SESSION_ID}',
         cancel_url = domain_url + 'cancelled/',

@@ -7,6 +7,19 @@ from django.urls import reverse
 
 # Create your models here.
 
+TAGS = (
+    ('A', 'Animals'),
+    ('V', 'Vehicles'),
+    ('H', 'Household Goods'),
+    ('F', 'Furniture'),
+    ('E', 'Electronics'),
+    ('C', 'Clothes'),
+    ('J', 'Jewelry'),
+    ('M', 'Makeup'),
+    ('B', 'Books'),
+    ('S', 'Sports'),
+)
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(max_length=1000, blank=True)
@@ -22,7 +35,7 @@ class Product(models.Model):
 
     def get_absolute_url(self):
         return reverse('home')
-        #fix me
+        #FIXME: go to post page?
 
 
 
