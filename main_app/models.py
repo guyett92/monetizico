@@ -7,6 +7,7 @@ from django.urls import reverse
 
 # Create your models here.
 
+# Can reorder or make more
 TAGS = (
     ('A', 'Animals'),
     ('V', 'Vehicles'),
@@ -30,7 +31,7 @@ class Product(models.Model):
     description = models.TextField(max_length=1000)
     name = models.CharField(max_length=100)
     price = models.IntegerField()
-    tag = models.CharField(max_length=25)
+    tag = models.CharField(max_length=1, choices=TAGS, default=TAGS[0][0])
     seller = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def get_absolute_url(self):
