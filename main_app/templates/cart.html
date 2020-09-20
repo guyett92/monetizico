@@ -1,21 +1,11 @@
-{% load static %}
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Django + Stripe Checkout</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.2/css/bulma.min.css">
-    <script src="https://js.stripe.com/v3/"></script>
-    <script src="{% static 'js/main.js' %}"></script>
-    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
-  </head>
-  <body>
+{% extends "base.html" %}
+{% block title %}
+    Monetizico | Cart
+{% endblock %}
+{% block content %}
   <section class="section">
-    <div class="container">
-      <button class="button is-primary" id="submitBtn">Purchase!</button>
-    </div>
+      <div class="container">
+        <button class="button is-primary" id="submitBtn">Purchase!</button>
+      </div>
   </section>
-  </body>
-</html>
+{% endblock %}

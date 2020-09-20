@@ -18,6 +18,8 @@ body {
     background-color: var(--red) !important;
 }
 
+/* 
+-- John, we can reuse these if you'd like! - Aaron
 #searchbar {
     height: 25px;
     width: 350px;
@@ -31,7 +33,7 @@ body {
     border-radius: 5px;
     height: 30px;
     width: 70px;
-}
+} */
 
 #signup {
     background-color: var(--dblue) !important;
@@ -84,4 +86,9 @@ input[type=text], input[type=email], input[type=password], input[type=date], tex
     top: 0.75em;
     background-color: var(--lblue) !important;
     color: var(--yellow) !important;
+}
+
+/* Updates is-info class to use lblue background */
+.is-info {
+    background-color: var(--lblue) !important;
 }

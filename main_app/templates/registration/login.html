@@ -3,10 +3,12 @@
     Monetizico | Login
 {% endblock %}
 {% block content %}
-<h1>Login</h1>
-<form method="post" action="{% url 'login' %}">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Login</button>
-</form>
+    <div class="container">
+        <h1 class="title is-1">Login</h1>
+        <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Login</button>
+        </form>
+    </div>
 {% endblock %}
