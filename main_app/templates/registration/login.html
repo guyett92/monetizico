@@ -11,7 +11,11 @@
             <div class="field">
                 <label class="label">Username:</label>
                 <div class="control has-icons-left has-icons-right">
+                  {% if form.errors.username %}
+                  <input type="text" name="username" maxlength="150" required id="id_username" class="input is-danger" type="text" placeholder="i.e. NewUser1">
+                  {% else %}
                   <input type="text" name="username" maxlength="150" required id="id_username" class="input" type="text" placeholder="i.e. NewUser1">
+                  {% endif %}
                   <span class="icon is-small is-left">
                     <i class="fas fa-user"></i>
                   </span>
@@ -32,9 +36,22 @@
                   </div>
 
      
-                  <div class="field is-grouped">
-                    <div class="control">
-                      <button class="button is-link">Login</button>
+                  <button class="a-button grey">
+                    <div class="icon">
+                        <div class="cannon"></div>
+                        <div class="confetti">
+                            <svg viewBox="0 0 18 16">
+                                <polyline points="1 10 4 7 4 5 6 1" />
+                                <path d="M4,13 C5.33333333,9 7,7 9,7 C11,7 12.3340042,6 13.0020125,4" />
+                                <path d="M6,15 C7.83362334,13.6666667 9.83362334,12.6666667 12,12 C14.1663767,11.3333333 15.8330433,9.66666667 17,7" />
+                            </svg>
+                            <i></i><i></i><i></i><i></i><i></i><i></i>
+                            <div class="emitter"></div>
+                        </div>
+                    </div>
+                    <span>Log In</span>
+                </button>
+                    
                     </div>
                     <div class="">
                       <a href="{% url 'home' %}" class="button is-link is-light">Cancel</a>
