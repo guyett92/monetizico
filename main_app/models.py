@@ -37,14 +37,18 @@ class Product(models.Model):
     def get_absolute_url(self):
         return reverse('home')
         #FIXME: go to post page?
-
-
+    
+    def __str__(self):
+        return self.name
 
 class Post(models.Model):
     exp_date = models.DateField(default=(date.today()+timedelta(days=30)).isoformat()) 
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    quantitiy = models.IntegerField()
+    quantity = models.PositiveIntegerField(default=1)
     active = models.BooleanField(default=True)
+
+    def get_absolute_url(self):
+        return reverse('home')
 
 class Cart(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

@@ -4,50 +4,124 @@
 {% endblock %}
 {% block content %}
 <div class="register">
-  <h1>REGISTER YOUR ACCOUNT</h1>
+  <h1 class="title">REGISTER YOUR ACCOUNT</h1>
   <form class="register-form" method="post">
       {% csrf_token %}
-      <p><label for="id_username">Username:</label> 
-      <br />
-      <input type="text" name="username" maxlength="150" required id="id_username"> 
-      <br />
-      <span class="helptext"><small>(Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.)</small></span></p>
-      <br />
-      <p><label for="id_first_name">First name:</label> 
-      <br />
-      <input type="text" name="first_name" maxlength="150" id="id_first_name"></p>
-      <br />
-      <p><label for="id_last_name">Last name:</label> 
-      <br />
-      <input type="text" name="last_name" maxlength="150" id="id_last_name"></p>
-      <br />
-      <p><label for="id_email">Email address:</label> 
-      <br />
-      <input type="email" name="email" maxlength="254" id="id_email"></p>
-      <br />
-      <p><label for="id_password">Password:</label> 
-      <br />  
-      <input type="password" name="password" required id="id_password"></p>
-      <br />
-      <p><label for="id_password_confirm">Password confirm:</label> 
-      <br />
-      <input type="password" name="password_confirm" required id="id_password_confirm"></p>
-      <br />
-      <p><label for="id_avatar">Avatar:</label> 
-      <br />  
-      <input type="text" name="avatar" maxlength="100" id="id_avatar"></p>
-      <br />
-      <p><label for="id_birth_date">Birth date:</label> 
-      <br />  
-      <input type="date" name="birth_date" id="id_birth_date"></p>
-      <br />
-      <p><label for="id_bio">Bio:</label> 
-      <br />
-      <textarea name="bio" cols="40" rows="10" maxlength="1000" id="id_bio">
-      </textarea></p>
-      <br />
-      <button type="submit">Save changes</button>
+      <div class="field">
+        <label class="label">Username:</label>
+        <div class="control has-icons-left has-icons-right">
+          <input type="text" name="username" maxlength="150" required id="id_username" class="input" type="text" placeholder="i.e. NewUser1">
+          <span class="icon is-small is-left">
+            <i class="fas fa-user"></i>
+          </span>
+          <span class="icon is-small is-right">
+            <i class="fas fa-check"></i>
+          </span>
+        </div>
+        <p class="help">(Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.)</p>
+      </div>
+      
+      <div class="field">
+        <label class="label">First Name:</label>
+        <div class="control has-icons-left has-icons-right">
+          <input name="first_name" maxlength="150" required id="id_first_name" class="input" type="text" placeholder="i.e. Bob" >
+          <span class="icon is-small is-left">
+            <i class="fas fa-user"></i>
+          </span>
+          <span class="icon is-small is-right">
+            <i class="fas fa-check"></i>
+          </span>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Last Name:</label>
+        <div class="control has-icons-left has-icons-right">
+          <input type="text" name="last_name" maxlength="150" required id="id_last_name" class="input" placeholder="i.e. Smith">
+          <span class="icon is-small is-left">
+            <i class="fas fa-user"></i>
+          </span>
+          <span class="icon is-small is-right">
+            <i class="fas fa-check"></i>
+          </span>
+        </div>
+      </div>
+      
+      <div class="field">
+        <label class="label">Email</label>
+        <div class="control has-icons-left has-icons-right">
+          <input name="email" maxlength="254" required id="id_email" class="input" type="email" placeholder="i.e. hello@gmail.com" >
+          <span class="icon is-small is-left">
+            <i class="fas fa-envelope"></i>
+          </span>
+          <span class="icon is-small is-right">
+          </span>
+        </div>
+        <p class="help"></p>
+      </div>
+
+      <div class="field">
+        <label class="label">Password:</label>
+        <div class="control  has-icons-right">
+          <input type="password" name="password" required id="id_password" class="input" type="text" placeholder="1234">
+          <span class="icon is-small is-right">
+            <i class="fas fa-check"></i>
+          </span>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Confirm Password:</label>
+        <div class="control has-icons-right">
+          <input type="password" name="password_confirm" required id="id_password_confirm" class="input" placeholder="1234">
+          <span class="icon is-small is-right">
+            <i class="fas fa-check"></i>
+          </span>
+        </div>
+      </div>
+
+      <div class="file has-name">
+        <label class="file-label">
+          <input type="text" name="avatar" maxlength="100" id="id_avatar" class="file-input">
+          <span class="file-cta">
+            <span class="file-icon">
+              <i class="fas fa-upload"></i>
+            </span>
+            <span class="file-label">
+              Choose a file…
+            </span>
+          </span>
+          <span class="file-name">"File name"
+          </span>
+        </label>
+      </div>
+
+      <br> 
+      <div class="field birth_date">
+      <label class="label" for="id_birth_date">Birth date:</label> 
+      <div class="control has-icons-right">
+      <input type="date" name="birth_date" required id="id_birth_date" class="input">
+    </div>
+  </div>
+  
+
+
+      <div class="field control">
+        <label class="label bio">Bio:</label>
+        <textarea name="bio" cols="40" rows="10" maxlength="1000" id="id_bio"class="textarea is-hovered" placeholder="Hi! 👋"></textarea>
+      </div>
+    
+      
+      <div class="field is-grouped">
+        <div class="control">
+          <button class="button is-link">Submit</button>
+        </div>
+        <div class="">
+          <a href="{% url 'home' %}" class="button is-link is-light">Cancel</a>
+        </div>
+      </div>
     </form>
+    <br><br>
 </div>
 
 {% endblock %}

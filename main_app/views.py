@@ -24,7 +24,8 @@ import stripe
 
 # Define the home view
 def home(request):
-  return render(request, 'home.html')
+  posts = Post.objects.all()
+  return render(request, 'home.html', {'posts': posts})
 
 class AddProduct(LoginRequiredMixin, CreateView):
   model = Product
@@ -34,11 +35,13 @@ class AddProduct(LoginRequiredMixin, CreateView):
     form.instance.seller = self.request.user
     return super().form_valid(form)
     
-def update_product():
-  pass
-
-def delete_product():
-  pass
+class UpdateProduct(LoginRequiredMixin, UpdateView):
+  model = Product
+  fields = ['name', 'description', 'price', 'tag']
+  
+class DeleteProduct(LoginRequiredMixin, DeleteView):
+  model = Product
+  success_url = '/home/'
 
 def post_detail(request, post_id):
   pass
@@ -48,7 +51,7 @@ class post_index():
 
 class AddPost(LoginRequiredMixin, CreateView):
   model = Post
-  fields = ['product']
+  fields = ['product', 'quantity']
   
   def get_form(self, form_class=None):
     form = super().get_form(form_class=None)
@@ -59,11 +62,13 @@ class AddPost(LoginRequiredMixin, CreateView):
     form.instance.user = self.request.user
     return super().form_valid(form)
 
-def update_post():
-  pass
-
-def delete_post():
-  pass
+class UpdatePost(LoginRequiredMixin, UpdateView):
+  model = Post
+  fields = ['product', 'quantity']
+  
+class DeletePost(LoginRequiredMixin, DeleteView):
+  model = Post
+  success_url = '/'
 
 def about(request):
   return render(request, 'about.html') 

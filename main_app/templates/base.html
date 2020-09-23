@@ -34,13 +34,17 @@
             <div id="navbarBasicExample" class="navbar-menu">
                 <div class="navbar-start">
                     <div class="navbar-item has-dropdown is-hoverable">
-                        <a class="navbar-link">Hi, John</a>
-                        <div class="navbar-dropdown">
-                            <a class="navbar-item" href="{% url 'about' %}">ABOUT US</a>
-                            <a class="navbar-item">CONTACT US</a>
+                        <a class="navbar-item" href="{% url 'about' %}">ABOUT US</a>
+                        <a class="navbar-item">CONTACT US</a>
+                        {% if user.is_authenticated %}
+                        <a class="navbar-link" href="{% url 'profile' %}">Hi, <strong>{{user.username}}</strong>!</a>
+                                <div class="navbar-dropdown">
                             <hr class="navbar-divider">
-                            <a class="navbar-item" href="">YOUR PROFILE</a>
-                            <a class="navbar-item" href="{% url 'cart' %}">YOUR CART</a>
+                            <a class="navbar-item" href="{% url 'AddProduct' %}" >Add A Product</a>
+                            <a class="navbar-item" href="{% url 'AddPost' %}" >Add A Post</a>
+                            <a class="navbar-item" href="{% url 'profile' %}" >View Profile</a>
+                            <a class="navbar-item" href="{% url 'cart' %}">View Cart</a>
+                            
                         </div>
                     </div>
                     <form class="navbar-item">
@@ -61,12 +65,18 @@
                 <div class="navbar-end">
                     <div class="navbar-item">
                         <div class="buttons">
+                            <a id="logout" class="button" href="{% url 'logout' %}">
+                                <strong>Logout</strong>
+                            </a>
+                        {% else %}
+                        <div class="buttons">
                             <a id="signup" class="button" href="{% url 'register' %}">
                                 <strong>Sign Up</strong>
                             </a>
                             <a id="login" class="button" href="{% url 'login' %}">
                                 <strong>Log In</strong>
                             </a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

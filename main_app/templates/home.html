@@ -17,13 +17,27 @@
                     Carousel
                 </div>
             </div>
-        <!-- SOMEHOW PUT CAROUSEL HERE ABOVE THESE 4 COLUMNS OF TWO ITEMS EACH -->
             <div class="tile is-ancestor">
+                {% for post in posts|slice:"0:4" %}
                 <div class="tile is-parent is-vertical is-3">
                     <div class="tile is-child notification is-warning">
-                        ITEM 1
+                        {{ post.product.name }}
                     </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="tile is-ancestor">
+                {% for post in posts|slice:"4:8" %}
+                <div class="tile is-parent is-vertical is-3">
                     <div class="tile is-child notification is-warning">
+                        {{ post.product.name }}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            
+            
+                    <!-- <div class="tile is-child notification is-warning">
                         ITEM 2
                         
                     </div>
@@ -52,7 +66,7 @@
                         ITEM 8
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </section>                
