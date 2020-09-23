@@ -3,12 +3,47 @@
     Monetizico | Login
 {% endblock %}
 {% block content %}
-    <div class="container">
+    
+    <div class="login container">
         <h1 class="title is-1">Login</h1>
-        <form method="post" action="{% url 'login' %}">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Login</button>
-        </form>
-    </div>
+    <form class="login-form" method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+            <div class="field">
+                <label class="label">Username:</label>
+                <div class="control has-icons-left has-icons-right">
+                  <input type="text" name="username" maxlength="150" required id="id_username" class="input" type="text" placeholder="i.e. NewUser1">
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-user"></i>
+                  </span>
+                  <span class="icon is-small is-right">
+                    <i class="fas fa-check"></i>
+                  </span>
+                </div>
+            </div>
+
+                <div class="field">
+                    <label class="label">Password:</label>
+                    <div class="control  has-icons-right">
+                      <input type="password" name="password" required id="id_password" class="input" type="text" placeholder="1234">
+                      <span class="icon is-small is-right">
+                        <i class="fas fa-check"></i>
+                      </span>
+                    </div>
+                  </div>
+
+     
+                  <div class="field is-grouped">
+                    <div class="control">
+                      <button class="button is-link">Login</button>
+                    </div>
+                    <div class="">
+                      <a href="{% url 'home' %}" class="button is-link is-light">Cancel</a>
+                    </div>
+                  </div>
+                </form>
+                <br><br>
+            </div>
+            
+            
+       
 {% endblock %}
