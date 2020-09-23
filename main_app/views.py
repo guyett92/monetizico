@@ -24,7 +24,8 @@ import stripe
 
 # Define the home view
 def home(request):
-  return render(request, 'home.html')
+  posts = Post.objects.all()
+  return render(request, 'home.html', {'posts': posts})
 
 class AddProduct(LoginRequiredMixin, CreateView):
   model = Product
