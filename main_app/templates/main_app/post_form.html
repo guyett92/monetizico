@@ -8,6 +8,7 @@
     {% csrf_token %}
     {{ form.as_p }}
     <input type="submit" value="Add post">
+    <a href="{% url 'AddProduct' %}">Create a Product!</a>
 </form>
 
 {% endblock %}
