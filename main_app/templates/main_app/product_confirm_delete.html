@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
-<h4>Are you sure you want to delete {{ object.name }}?</h4>
-
-<form action="" method="post">
-    {% csrf_token %}
-    <input type="submit" value="Yes-Delete!">
-    <a href="{% url 'home' %}">Cancel</a>
-</form>
+<section class="container mt-6">
+    <h4 class="is-4 title">Are you sure you want to delete {{ object.name }}?</h4>
+    <form action="" method="post">
+        {% csrf_token %}
+        <button type="submit" class="button is-danger">Delete</button>
+        <a class="button is-info is-pulled-right" href="{% url 'home' %}">Cancel</a>
+    </form>
+</section>
 
 {% endblock %}
