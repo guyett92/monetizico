@@ -60,8 +60,11 @@ class Comment(models.Model):
     comment = models.TextField(max_length=1000)
 
 class Photo(models.Model):
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, default=None, on_delete=models.CASCADE)
     url = models.CharField(max_length=200)
+    #user
 
+    def __str__(self):
+        return f"Photo for post_id: {self.post_id} @{self.url}"
 # class Reviews(models.Model):
 #     ICEBOX
