@@ -18,7 +18,7 @@ import uuid
 import boto3
 import stripe
 
-S3_BASE_URL = "https://cyberpunkmonetizico.s3.amazonaws.com/"
+S3_BASE_URL = "https://s3-us-east-2.amazonaws.com/"
 BUCKET = "cyberpunkmonetizico"
 # Create your views here
 
@@ -77,12 +77,12 @@ def add_photo(request, post_id):
       key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
       try: 
         s3.upload_fileobj(photo_file, BUCKET, key)
-        url = f"{S3_BASE_URL}{BUCKET}/{key}"
+        url = f"{S3_BASE_URL}{key}"
         photo = Photo(url=url, post_id=post_id)
         photo.save()
       except:
         print('An error occurred uploading file to S3')
-  return redirect('/', post_id=post_id)
+  return redirect('home')
 
 def about(request):
   return render(request, 'about.html') 
@@ -124,9 +124,6 @@ def register(request):
             'user_form': user_form,
             'profile_form': profile_form
     })
-
-def add_photo():
-  pass
 
 def update_photo():
   pass

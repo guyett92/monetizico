@@ -4,11 +4,29 @@
 {% endblock %}
 {% block content %}
 
-<form action="" method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
+<!-- Insert photo markup below this comment -->
+
+
+<!-- {% for photo in post.photo_set.all %} -->
+<!-- <img src="{{photo.url}}" class=""> -->
+<!-- {% empty %} -->
+<!-- <div alt="" class="">No Photos Uploaded</div> -->
+<!-- {% endfor %} -->
+
+
+<!-- <form action="{% url 'add_photo' post.id %}" enctype="multipart/form-data" method="POST" class="">
+{% csrf_token %}
+<input type="file" name="photo-file">
+<br><br>
+<input type="submit" class="btn" value="Upload Photo">
+</form> -->
+
+
+ <form action="" method="POST"> 
+     {% csrf_token %} 
+    {{ form.as_p }} 
     <input type="submit" value="Add post">
     <a href="{% url 'AddProduct' %}">Create a Product!</a>
-</form>
+ </form>
 
 {% endblock %}
