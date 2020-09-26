@@ -1,27 +1,65 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
+{% block title %}
+    Exchange🔺 | View Post
+{% endblock %}
 
 {% block content %}
+<br>
+<div class="tile is-parent">
+    <article class="tile is-child box">
+  <p class="title product-detail-title	has-text-centered">{{ post.product }}</p>
+  </article>
+  </div>
+<div class="tile ">
+    <div class="tile is-parent">
+      <article class="tile is-child box">
+        <figure class="image is-4by3">
+            <img src="https://i.imgur.com/cnP9D2q.jpg">
+          </figure>
+      </article>
+    </div>
 
-Product: {{ post.product }}
-Quantity: {{ post.quantity }}
-Seller: {{ post.product.seller.first_name }}
-Price: {{ post.product.price }}
-{{cart.user}}
+<div class="tile is-parent">
+    <article class="tile is-child box">
+        <br>
+        <p class="subtitle">Price: ${{ post.product.price }}</p>
+        <p class="subtitle">Description: {{ post.product.description }}</p>
+        <p class="">Quantity: {{ post.quantity }}</p>
+      <p>Tag:{{ post.product.tag }}</p>
+      <p>Expiration Date: {{post.product.exp_date }}</p>
+      <p>Sold By: {{ post.product.seller.first_name }}</p>
+      <p>{{cart.user}}</p>
 
+      
+
+<br><br>
 {% if cart %}
 <div>
     <form action="{% url 'add_to_cart' 9 post.id %}" method="post">
         {% csrf_token %}
-        <button type="submit" class="btn">Add</button>
+        <div class="field is-grouped">
+            <div class="control">
+                <button type="submit" class="button is-light is-link">Add To Cart</button>
     </form>
 </div>
+
 {% else %}
 <div>
     <form action="{% url 'create_cart' post.id %}" method="post">
         {% csrf_token %}
-        <button type="submit">Create Cart</button>
+        <div class="field is-grouped">
+            <div class="control">
+                <button class="button is-success" type="submit">Create Cart</button>
+            </div>
+        </div>
     </form>
+    {% endif %} <br>
+    <div class="field is-grouped">
+        <div class="control field">
+            <a class="button is-link" href="{% url 'home' %}" type="submit">Continue Shopping</a>
+        </div>
+    </div>
 </div>
-{% endif %}
-
+    </div>
+</div>
 {% endblock %}
