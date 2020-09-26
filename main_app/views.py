@@ -148,7 +148,7 @@ def create_checkout_session(request):
     domain_url = 'http://localhost:8000/'
     stripe.api_key = settings.STRIPE_SECRET_KEY
     try:
-      product = Product.objects.get(id=1)
+      product = Product.objects.get(id=7)
       checkout_session = stripe.checkout.Session.create(
         success_url = domain_url + 'success?session_id={CHECKOUT_SESSION_ID}',
         cancel_url = domain_url + 'cancelled/',
