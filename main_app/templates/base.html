@@ -2,7 +2,7 @@
 {% load custom_tags %}
 {% if user.is_authenticated %}
     {% get_cart user as cart %}
-    {% get_posts user as posts %}
+    {% get_posts user as user_posts %}
 {% endif %}
 <!DOCTYPE html>
 <html lang="en">
