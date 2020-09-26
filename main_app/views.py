@@ -17,6 +17,10 @@ from .forms import ProfileForm, UserForm
 import uuid
 import boto3
 import stripe
+import environ
+
+env = environ.Env()
+environ.Env.read_env()
 
 # Create your views here
 
@@ -174,6 +178,40 @@ def create_checkout_session(request):
       return JsonResponse({'sessionId': checkout_session['id']})
     except Exception as e:
       return JsonResponse({'error': str(e)})
+
+@csrf_exempt
+def stripe_webhook(request):
+  stripe.api_key = settings.STRIPE_SECRET_KEY
+  endpoint_secret = env('STRIPE_ENDPOINT_SECRET')
+  payload = request.body
+  sig_header = request.META['HTTP_STRIPE_SIGNATURE']
+  event = None
+
+  try:
+    event = stripe.Webhook.construct_event(
+      payload, sig_header, endpoint_secret
+    )
+  except ValueError as e:
+    # Invalid payload
+    return HttpResponse(status=400)
+  except stripe.error.SignatureVerificationError as e:
+    # Invalid signature
+    return HttpResponse(status=400)
+  
+  if event['type'] == 'checkout.session.completed':
+    print("Payment was successful")
+    # set posts to inactive
+    products = Cart.objects.all()
+    for product in products:
+      print(product)
+      posts = product.posts.all()
+      print(posts)
+      for post in posts:
+        print(post.active)
+        post.active = False
+        print(post.active)
+        post.save()
+  return HttpResponse(status=200)
 
 def success(request):
   return render(request, 'success.html')
