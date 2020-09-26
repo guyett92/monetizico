@@ -70,7 +70,6 @@ class DeletePost(LoginRequiredMixin, DeleteView):
   model = Post
   success_url = '/'
 
-
 def about(request):
   return render(request, 'about.html') 
 
@@ -112,14 +111,15 @@ def register(request):
             'profile_form': profile_form
     })
 
-def update_photo():
-  pass
-
-def delete_photo():
-  pass
-
 def cart(request):
-  return render(request, 'cart.html')
+  cart = Cart.objects.filter(user=request.user.id)
+  posts = []
+  for product in cart:
+    for post in product.posts.all():
+      if post.active:
+        posts.append(post)
+
+  return render(request, 'cart.html', {'cart': cart, 'posts':posts})
 
 def create_cart(request, post_id):
   cart = Cart(user=request.user)
@@ -142,26 +142,34 @@ def stripe_config(request):
     stripe_config = {'publicKey': settings.STRIPE_PUBLISHABLE_KEY}
     return JsonResponse(stripe_config, safe=False)
 
+def get_products(products):
+  lst1 = []
+  for product in products:
+    posts = product.posts.all()
+    for post in posts:
+      if post.active:
+        item = {
+          'name': post.product.name,
+          'quantity': post.quantity,
+          'currency': 'usd',
+          'amount': post.product.price * 100, #multiply by 100 d/t doesn't recognize decimal
+        }
+        lst1.append(item)
+  return lst1
+
 @csrf_exempt
 def create_checkout_session(request):
   if request.method == 'GET':
     domain_url = 'http://localhost:8000/'
     stripe.api_key = settings.STRIPE_SECRET_KEY
     try:
-      product = Product.objects.get(id=7)
+      products = Cart.objects.all()
       checkout_session = stripe.checkout.Session.create(
         success_url = domain_url + 'success?session_id={CHECKOUT_SESSION_ID}',
         cancel_url = domain_url + 'cancelled/',
         payment_method_types = ['card'],
         mode = 'payment',
-        line_items = [
-          {
-            'name': product.name,
-            'quantity': 1,
-            'currency': 'usd',
-            'amount': product.price * 100, #multiply by 100 d/t doesn't recognize decimal
-          }
-        ]
+        line_items = get_products(products)
       )
       return JsonResponse({'sessionId': checkout_session['id']})
     except Exception as e:

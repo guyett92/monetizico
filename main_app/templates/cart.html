@@ -3,6 +3,15 @@
     Monetizico | Cart
 {% endblock %}
 {% block content %}
+
+  {% for post in posts %}
+    {{ post.product.name }}
+    {{ post.quantity }}
+    ${{ post.product.price }}
+  {% empty %}
+    <div>Nothing in your cart</div>
+  {% endfor %}
+
   <section class="section">
       <div class="container">
         <button class="button is-primary" id="submitBtn">Purchase!</button>
