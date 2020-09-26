@@ -14,6 +14,7 @@ from botocore.exceptions import ClientError
 from django.dispatch import receiver
 from .models import Product, Cart, Post, User
 from .forms import ProfileForm, UserForm
+from datetime import date, timedelta
 import uuid
 import boto3
 import stripe
@@ -26,7 +27,14 @@ environ.Env.read_env()
 
 # Define the home view
 def home(request):
-  posts = Post.objects.all()
+  posts = Post.objects.filter(active=True)
+
+  def get_post_status(request):
+    all_posts = Post.objects.all()
+    for post in all_posts:
+      if date.today() > post.exp_date:
+        post.active = False
+        post.save()
   return render(request, 'home.html', {'posts': posts})
 
 class AddProduct(LoginRequiredMixin, CreateView):
