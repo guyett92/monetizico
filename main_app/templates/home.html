@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block title %}
-    Monetizico | Home
+    Exchange 🔺| Home
 {% endblock %}
 {% block content %}
 
@@ -21,13 +21,10 @@
             <div class="tile is-ancestor">
                 {% for post in posts|slice:"0:4" %}
                 <div class="tile is-parent is-vertical is-3">
-                    <div class="tile is-child notification is-warning">
-                        {{ post.product.name }}
-                        {% for photo in post.photo_set.all %}
-                        <img src="{{ photo.url }}" alt="pic of dog">
-                        {% empty %}
-                        <p>No photos available</p>
-                        {% endfor %}
+                    <div class="tile is-child">
+                        <figure class="image is-1by1">
+                            <img class="is-rounded" src="{{ post.product.photo.url }}" alt="Photo of product">
+                        </figure>
                     </div>
                 </div>
                 {% endfor %}
@@ -35,18 +32,22 @@
             <div class="tile is-ancestor">
                 {% for post in posts|slice:"4:8" %}
                 <div class="tile is-parent is-vertical is-3">
-                    <div class="tile is-child notification is-warning">
-                        {{ post.product.name }}
+                    <div class="tile is-child">
+                        <figure class="image is-1by1">
+                            <img class="is-rounded" src="{{ post.product.photo.url }}" alt="Photo of product">
+                        </figure>
                     </div>
                 </div>
                 {% endfor %}
             </div>
+            <div class="tile is-ancestor">
             {% else %}
                 <div class="tile is-parent notification">
                     <div class="tile has-text-centered is-child">
                         <h1 class="title is-1">No products have been posted!</h1>
                     </div>
                 </div>
+            </div>
         </div>
         {% endif %}
     </div>

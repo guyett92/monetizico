@@ -51,6 +51,9 @@ class Post(models.Model):
     quantity = models.PositiveIntegerField(default=1)
     active = models.BooleanField(default=True)
 
+    def __str__(self):
+        return self.product.name
+
     def get_absolute_url(self):
         return reverse('home')
 

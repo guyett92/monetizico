@@ -39,6 +39,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'django_s3_storage',
     'main_app',
+    'widget_tweaks',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -72,6 +73,9 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'libraries': {
+                'custom_tags': 'main_app.templatetags.custom_tags',
+            }
         },
     },
 ]
@@ -140,6 +144,7 @@ LOGOUT_REDIRECT_URL = '/' #fix me
 
 STRIPE_PUBLISHABLE_KEY = 'pk_test_51HRSLCLOlRhWszAlat6npafXudcrNO1N0R9HYd495xBtLBDn1i13mANYb3JLWOa4DHwxk5DS4YNCct1gMZ9sdiIt001CKJMdUz'
 STRIPE_SECRET_KEY = 'sk_test_51HRSLCLOlRhWszAlwKUgBAeqsEzqsH4p3pAo5CF3tipwvCyuiMxfUFNKJ9QE0lbUHxEzVlybNrriTdpqfbS7QHK100fA7kexcw'
+STRIPE_ENDPOINT_SECRET = env("STRIPE_ENDPOINT_SECRET")
 
 # AWS Stuff django-s3-storage
 AWS_REGION = "us-east-2"

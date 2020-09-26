@@ -98,3 +98,8 @@ body {
 .is-info {
   background-color: var(--lblue) !important;
 }
+
+#product_form {
+  display: flex;
+  justify-content: center;
+}
