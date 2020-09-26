@@ -15,7 +15,7 @@
         <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js"></script>
         <title>
             {%block title %}
-            Monetizico
+            Exchange
             {% endblock %}
         </title>
     </head>
@@ -43,11 +43,10 @@
                         <a class="navbar-link" href="{% url 'profile' %}">Hi,&nbsp;<strong>{{user.first_name|capfirst}}</strong>!</a>
                         {% endif %}
                         <div class="navbar-dropdown">
-                            <a class="navbar-item" href="{% url 'profile' %}" >View Profile</a>
-                            <a class="navbar-item" href="{% url 'cart' %}">View Cart</a>
+                            <a class="navbar-item" href="{% url 'profile' %}"><i class="fa fa-user" aria-hidden="true"></i>&nbsp; View Profile</a>
                             <hr class="navbar-divider">
-                            <a class="navbar-item" href="{% url 'AddProduct' %}" >Add A Product</a>
-                            <a class="navbar-item" href="{% url 'AddPost' %}" >Add A Post</a>
+                            <a class="navbar-item" href="{% url 'AddProduct' %}"><i class="fa fa-archive" aria-hidden="true"></i>&nbsp; Add A Product</a>
+                            <a class="navbar-item" href="{% url 'AddPost' %}"><i class="fa fa-credit-card" aria-hidden="true"></i>&nbsp; List an Item</a>
                         </div>
                     </div>
                     
@@ -66,29 +65,30 @@
                         </div>
                     </form>
                 </div>
-                {% if user.is_authenticated %}
                 <div class="navbar-end">
-                    <div class="navbar-item">
-                        <div class="buttons">
-                            <a id="logout" class="button" href="{% url 'logout' %}">
-                                <strong>Logout</strong>
-                            </a>
+                    {% if user.is_authenticated %}
+                        <div class="navbar-item">
+                            <div class="buttons">
+                                <a id="logout" class="button" href="{% url 'logout' %}">
+                                    <strong>Logout</strong>
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                {% else %}
-                <div class="navbar-end">
-                    <div class="navbar-item">
-                        <div class="buttons">
-                            <a id="signup" class="button" href="{% url 'register' %}">
-                                <strong>Sign Up</strong>
-                            </a>
-                            <a id="login" class="button" href="{% url 'login' %}">
-                                <strong>Log In</strong>
-                            </a>
+                        <a class=" has-text-black navbar-item" href="{% url 'cart' %}" ><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
+                    {% else %}
+                        <div class="navbar-item">
+                            <div class="buttons">
+                                <a id="signup" class="button" href="{% url 'register' %}">
+                                    <strong>Sign Up</strong>
+                                </a>
+                                <a id="login" class="button" href="{% url 'login' %}">
+                                    <strong>Log In</strong>
+                                </a>
+                            </div>
                         </div>
+                        {% endif %}
                     </div>
                 </div>
-                {% endif %}
             </div>   
         </nav>
             {% block content %}
