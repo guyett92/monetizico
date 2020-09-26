@@ -52,7 +52,7 @@ class Post(models.Model):
 
 class Cart(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    products = models.ManyToManyField(Product)
+    posts = models.ManyToManyField(Post)
     # total = calculated from price in Product model; or do it in the view
 
 class Comment(models.Model):
