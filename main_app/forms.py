@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import User, Profile
+from .models import User, Profile, Product
 from django import forms
 from datetime import date
 
@@ -16,6 +16,4 @@ class ProfileForm(forms.ModelForm):
         model = Profile
         fields = ['avatar', 'birth_date', 'bio']
         widgets = {'birth_date':forms.DateInput(attrs={'type':'date'}),}
-
-
-    
+  

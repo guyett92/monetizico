@@ -13,16 +13,28 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from botocore.exceptions import ClientError
 from django.dispatch import receiver
 from .models import Product, Cart, Post, User
-from .forms import ProfileForm, UserForm
+from .forms import ProfileForm, UserForm, ProductForm
+from datetime import date, timedelta
 import uuid
 import boto3
 import stripe
+import environ
+
+env = environ.Env()
+environ.Env.read_env()
 
 # Create your views here
 
 # Define the home view
 def home(request):
-  posts = Post.objects.all()
+  posts = Post.objects.filter(active=True)
+
+  def get_post_status(request):
+    all_posts = Post.objects.all()
+    for post in all_posts:
+      if date.today() > post.exp_date:
+        post.active = False
+        post.save()
   return render(request, 'home.html', {'posts': posts})
 
 class AddProduct(LoginRequiredMixin, CreateView):
@@ -112,14 +124,7 @@ def register(request):
     })
 
 def cart(request):
-  cart = Cart.objects.filter(user=request.user.id)
-  posts = []
-  for product in cart:
-    for post in product.posts.all():
-      if post.active:
-        posts.append(post)
-
-  return render(request, 'cart.html', {'cart': cart, 'posts':posts})
+  return render(request, 'cart.html')
 
 def create_cart(request, post_id):
   cart = Cart(user=request.user)
@@ -174,6 +179,40 @@ def create_checkout_session(request):
       return JsonResponse({'sessionId': checkout_session['id']})
     except Exception as e:
       return JsonResponse({'error': str(e)})
+
+@csrf_exempt
+def stripe_webhook(request):
+  stripe.api_key = settings.STRIPE_SECRET_KEY
+  endpoint_secret = env('STRIPE_ENDPOINT_SECRET')
+  payload = request.body
+  sig_header = request.META['HTTP_STRIPE_SIGNATURE']
+  event = None
+
+  try:
+    event = stripe.Webhook.construct_event(
+      payload, sig_header, endpoint_secret
+    )
+  except ValueError as e:
+    # Invalid payload
+    return HttpResponse(status=400)
+  except stripe.error.SignatureVerificationError as e:
+    # Invalid signature
+    return HttpResponse(status=400)
+  
+  if event['type'] == 'checkout.session.completed':
+    print("Payment was successful")
+    # set posts to inactive
+    products = Cart.objects.all()
+    for product in products:
+      print(product)
+      posts = product.posts.all()
+      print(posts)
+      for post in posts:
+        print(post.active)
+        post.active = False
+        print(post.active)
+        post.save()
+  return HttpResponse(status=200)
 
 def success(request):
   return render(request, 'success.html')

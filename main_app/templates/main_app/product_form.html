@@ -1,17 +1,57 @@
 {% extends "base.html" %}
+{% load widget_tweaks %}
 {% block title %}
     Monetizico | Add Product
 {% endblock %}
 {% block content %}
 
-<form action="" enctype="multipart/form-data" method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    {% if product %}
-        <input type="submit" value="Edit product">
-    {% else %}
-        <input type="submit" value="Add product">
-    {% endif %}
-</form>
+<div class="add-product-form container">
+    <h1 class="title">Add a Product</h1>
+    <form class="add-product-form" action="" enctype="multipart/form-data" method="POST">
+        {% csrf_token %}
+        <div class="field">
+            <label class="label">Name:</label>
+            <div class="control has-icons-right">
+                {{ form.name|add_class:"input" }}
+                <span class="icon is-small is-right">
+                    <i class="fas fa-check"></i>
+                  </span>
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="label">Price:</label>
+            <div class="control has-icons-right">
+                {{ form.price|add_class:"input" }}
+              <span class="icon is-small is-right">
+                <i class="fas fa-check"></i>
+              </span>
+            </div>
+          </div>
+
+          <div class="field ">
+            <label class="label description">Description:</label>
+            <div class="control">
+            {{ form.description|add_class:"textarea is-hovered"}}
+          </div>
+        </div>
+
+        <div class="field ">
+            <label class="label">Tag:</label>
+            {{ form.tag }}
+        </div>
+
+        <div class="file has-name control field">
+        <label class="label">Upload Photo: </label>
+            {{ form.photo|add_class:"file-cta" }}
+        </div>
+        
+        {% if product %}
+            <input type="submit" value="Edit product">
+        {% else %}
+            <input type="submit" value="Add product">
+        {% endif %}
+    </form>
+</div>
 
 {% endblock %}
