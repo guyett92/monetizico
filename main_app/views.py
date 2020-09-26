@@ -12,14 +12,12 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from botocore.exceptions import ClientError
 from django.dispatch import receiver
-from .models import Product, Cart, Photo, Post, User
+from .models import Product, Cart, Post, User
 from .forms import ProfileForm, UserForm
 import uuid
 import boto3
 import stripe
 
-S3_BASE_URL = "https://s3-us-east-2.amazonaws.com/"
-BUCKET = "cyberpunkmonetizico"
 # Create your views here
 
 # Define the home view
@@ -29,7 +27,7 @@ def home(request):
 
 class AddProduct(LoginRequiredMixin, CreateView):
   model = Product
-  fields = ['name', 'price','description', 'tag']
+  fields = ['name', 'price','description', 'tag', 'photo']
 
   def form_valid(self, form):
     form.instance.seller = self.request.user
@@ -72,20 +70,6 @@ class DeletePost(LoginRequiredMixin, DeleteView):
   model = Post
   success_url = '/'
 
-def add_photo(request, post_id):
-  photo_file = request.FILES.get('photo-file', None)
-  if photo_file:
-      s3 = boto3.client('s3')
-      key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
-      try: 
-        s3.upload_fileobj(photo_file, BUCKET, key)
-        url = f"{S3_BASE_URL}{key}"
-        photo = Photo(url=url, post_id=post_id)
-        photo.save()
-      except:
-        print('An error occurred uploading file to S3')
-  return redirect('home')
-
 def about(request):
   return render(request, 'about.html') 
 
@@ -127,14 +111,15 @@ def register(request):
             'profile_form': profile_form
     })
 
-def update_photo():
-  pass
-
-def delete_photo():
-  pass
-
 def cart(request):
-  return render(request, 'cart.html')
+  cart = Cart.objects.filter(user=request.user.id)
+  posts = []
+  for product in cart:
+    for post in product.posts.all():
+      if post.active:
+        posts.append(post)
+
+  return render(request, 'cart.html', {'cart': cart, 'posts':posts})
 
 def create_cart(request, post_id):
   cart = Cart(user=request.user)
@@ -157,26 +142,34 @@ def stripe_config(request):
     stripe_config = {'publicKey': settings.STRIPE_PUBLISHABLE_KEY}
     return JsonResponse(stripe_config, safe=False)
 
+def get_products(products):
+  lst1 = []
+  for product in products:
+    posts = product.posts.all()
+    for post in posts:
+      if post.active:
+        item = {
+          'name': post.product.name,
+          'quantity': post.quantity,
+          'currency': 'usd',
+          'amount': post.product.price * 100, #multiply by 100 d/t doesn't recognize decimal
+        }
+        lst1.append(item)
+  return lst1
+
 @csrf_exempt
 def create_checkout_session(request):
   if request.method == 'GET':
     domain_url = 'http://localhost:8000/'
     stripe.api_key = settings.STRIPE_SECRET_KEY
     try:
-      product = Product.objects.get(id=1)
+      products = Cart.objects.all()
       checkout_session = stripe.checkout.Session.create(
         success_url = domain_url + 'success?session_id={CHECKOUT_SESSION_ID}',
         cancel_url = domain_url + 'cancelled/',
         payment_method_types = ['card'],
         mode = 'payment',
-        line_items = [
-          {
-            'name': product.name,
-            'quantity': 1,
-            'currency': 'usd',
-            'amount': product.price * 100, #multiply by 100 d/t doesn't recognize decimal
-          }
-        ]
+        line_items = get_products(products)
       )
       return JsonResponse({'sessionId': checkout_session['id']})
     except Exception as e:
