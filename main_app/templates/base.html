@@ -1,4 +1,9 @@
 {% load static %}
+{% load custom_tags %}
+{% if user.is_authenticated %}
+    {% get_cart user as cart %}
+    {% get_posts user as user_posts %}
+{% endif %}
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -45,8 +50,13 @@
                         <div class="navbar-dropdown">
                             <a class="navbar-item" href="{% url 'profile' %}"><i class="fa fa-user" aria-hidden="true"></i>&nbsp; View Profile</a>
                             <hr class="navbar-divider">
-                            <a class="navbar-item" href="{% url 'AddProduct' %}"><i class="fa fa-archive" aria-hidden="true"></i>&nbsp; Add A Product</a>
-                            <a class="navbar-item" href="{% url 'AddPost' %}"><i class="fa fa-credit-card" aria-hidden="true"></i>&nbsp; List an Item</a>
+                            {% if user|product_count %}
+                                    <a class="navbar-item" href="{% url 'AddProduct' %}"><i class="fa fa-archive" aria-hidden="true"></i>&nbsp; Add A Product</a>
+                                    <a class="navbar-item" href="{% url 'AddPost' %}"><i class="fa fa-credit-card" aria-hidden="true"></i>&nbsp; List an Item</a>
+                            {% else %}
+                                    <a class="navbar-item" href="{% url 'AddProduct' %}"><i class="fa fa-archive" aria-hidden="true"></i>&nbsp; Add A Product</a>
+                                    <a class="navbar-item" href="{% url 'AddProduct' %}"><i class="fa fa-credit-card" aria-hidden="true"></i>&nbsp; List an Item</a>
+                            {% endif %}
                         </div>
                     </div>
                     
@@ -67,6 +77,12 @@
                 </div>
                 <div class="navbar-end">
                     {% if user.is_authenticated %}
+                    <div class="navbar-item has-dropdown is-hoverable">
+                        <a class="has-text-black navbar-item" href="{% url 'cart' %}" ><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
+                        <div class="navbar-dropdown">
+                            {{ posts }}
+                        </div>
+                    </div>
                         <div class="navbar-item">
                             <div class="buttons">
                                 <a id="logout" class="button" href="{% url 'logout' %}">
@@ -74,7 +90,6 @@
                                 </a>
                             </div>
                         </div>
-                        <a class=" has-text-black navbar-item" href="{% url 'cart' %}" ><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
                     {% else %}
                         <div class="navbar-item">
                             <div class="buttons">

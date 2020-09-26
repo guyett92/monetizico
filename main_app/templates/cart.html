@@ -5,9 +5,9 @@
 {% block content %}
 
   {% for post in posts %}
-    {{ post.product.name }}
-    {{ post.quantity }}
-    ${{ post.product.price }}
+    {{ user_post.product.name }}
+    {{ user_post.quantity }}
+    ${{ user_post.product.price }}
   {% empty %}
     <div>Nothing in your cart</div>
   {% endfor %}

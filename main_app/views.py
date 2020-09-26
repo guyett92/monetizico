@@ -124,14 +124,7 @@ def register(request):
     })
 
 def cart(request):
-  cart = Cart.objects.filter(user=request.user.id)
-  posts = []
-  for product in cart:
-    for post in product.posts.all():
-      if post.active:
-        posts.append(post)
-
-  return render(request, 'cart.html', {'cart': cart, 'posts':posts})
+  return render(request, 'cart.html')
 
 def create_cart(request, post_id):
   cart = Cart(user=request.user)
