@@ -23,6 +23,11 @@
                 <div class="tile is-parent is-vertical is-3">
                     <div class="tile is-child notification is-warning">
                         {{ post.product.name }}
+                        {% for photo in post.photo_set.all %}
+                        <img src="{{ photo.url }}" alt="pic of dog">
+                        {% empty %}
+                        <p>No photos available</p>
+                        {% endfor %}
                     </div>
                 </div>
                 {% endfor %}
