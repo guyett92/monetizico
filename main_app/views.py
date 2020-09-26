@@ -12,14 +12,12 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from botocore.exceptions import ClientError
 from django.dispatch import receiver
-from .models import Product, Cart, Photo, Post, User
+from .models import Product, Cart, Post, User
 from .forms import ProfileForm, UserForm
 import uuid
 import boto3
 import stripe
 
-S3_BASE_URL = "https://s3-us-east-2.amazonaws.com/"
-BUCKET = "cyberpunkmonetizico"
 # Create your views here
 
 # Define the home view
@@ -29,7 +27,7 @@ def home(request):
 
 class AddProduct(LoginRequiredMixin, CreateView):
   model = Product
-  fields = ['name', 'price','description', 'tag']
+  fields = ['name', 'price','description', 'tag', 'photo']
 
   def form_valid(self, form):
     form.instance.seller = self.request.user
@@ -70,19 +68,6 @@ class DeletePost(LoginRequiredMixin, DeleteView):
   model = Post
   success_url = '/'
 
-def add_photo(request, post_id):
-  photo_file = request.FILES.get('photo-file', None)
-  if photo_file:
-      s3 = boto3.client('s3')
-      key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
-      try: 
-        s3.upload_fileobj(photo_file, BUCKET, key)
-        url = f"{S3_BASE_URL}{key}"
-        photo = Photo(url=url, post_id=post_id)
-        photo.save()
-      except:
-        print('An error occurred uploading file to S3')
-  return redirect('home')
 
 def about(request):
   return render(request, 'about.html') 
