@@ -13,7 +13,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from botocore.exceptions import ClientError
 from django.dispatch import receiver
 from .models import Product, Cart, Post, User
-from .forms import ProfileForm, UserForm
+from .forms import ProfileForm, UserForm, ProductForm
 from datetime import date, timedelta
 import uuid
 import boto3
