@@ -3,6 +3,9 @@ from datetime import date, timedelta
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.urls import reverse
+from django_s3_storage.storage import S3Storage
+
+storage = S3Storage(aws_s3_bucket_name='exchange-2')
 
 
 # Create your models here.
@@ -33,6 +36,7 @@ class Product(models.Model):
     price = models.IntegerField()
     tag = models.CharField(max_length=1, choices=TAGS, default=TAGS[0][0])
     seller = models.ForeignKey(User, on_delete=models.CASCADE)
+    photo = models.ImageField(upload_to=storage)
 
     def get_absolute_url(self):
         return reverse('home')
@@ -52,19 +56,19 @@ class Post(models.Model):
 
 class Cart(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    products = models.ManyToManyField(Product)
+    posts = models.ManyToManyField(Post)
     # total = calculated from price in Product model; or do it in the view
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     comment = models.TextField(max_length=1000)
 
-class Photo(models.Model):
-    post = models.ForeignKey(Post, default=None, on_delete=models.CASCADE)
-    url = models.CharField(max_length=200)
-    #user
+# class Photo(models.Model):
+#     post = models.ForeignKey(Post, default=None, on_delete=models.CASCADE)
+#     url = models.CharField(max_length=200)
+#     #user
 
-    def __str__(self):
-        return f"Photo for post_id: {self.post_id} @{self.url}"
+#     def __str__(self):
+#         return f"Photo for post_id: {self.post_id} @{self.url}"
 # class Reviews(models.Model):
 #     ICEBOX

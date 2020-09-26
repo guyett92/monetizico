@@ -11,10 +11,13 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+import environ
+
+env = environ.Env()
+environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
@@ -25,12 +28,16 @@ SECRET_KEY = '&6do#34%@9g9l0ki3v5%^9tbnnjbz9m+xh8)m^b9u5bw_@z&n='
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+# environ stuff
+
+
 ALLOWED_HOSTS = []
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'django_s3_storage',
     'main_app',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -133,3 +140,15 @@ LOGOUT_REDIRECT_URL = '/' #fix me
 
 STRIPE_PUBLISHABLE_KEY = 'pk_test_51HRSLCLOlRhWszAlat6npafXudcrNO1N0R9HYd495xBtLBDn1i13mANYb3JLWOa4DHwxk5DS4YNCct1gMZ9sdiIt001CKJMdUz'
 STRIPE_SECRET_KEY = 'sk_test_51HRSLCLOlRhWszAlwKUgBAeqsEzqsH4p3pAo5CF3tipwvCyuiMxfUFNKJ9QE0lbUHxEzVlybNrriTdpqfbS7QHK100fA7kexcw'
+
+# AWS Stuff django-s3-storage
+AWS_REGION = "us-east-2"
+AWS_ACCESS_KEY_ID = env("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = env("AWS_SECRET_ACCESS_KEY")
+AWS_S3_BUCKET_NAME = "exchange-2"
+DEFAULT_FILE_STORAGE = "django_s3_storage.storage.S3Storage"
+AWS_S3_BUCKET_NAME_STATIC = "exchange-2"
+AWS_S3_BUCKET_AUTH_STATIC = False
+AWS_S3_BUCKET_AUTH = False
+AWS_S3_MAX_AGE_SECONDS = 60 * 60 * 24 * 365
+AWS_S3_MAX_AGE_SECONDS_CACHED_STATIC = 60 * 60 * 24 * 265

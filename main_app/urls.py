@@ -5,9 +5,6 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('about/', views.about, name='about'),
     path('profile/', views.profile, name='profile'),
-
-    #path('posts/<int:post_id>/add_photo', views.add_photo, name='add_photo'),
-
     path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/register/', views.register, name='register'),
     path('cart/', views.cart, name='cart'),
@@ -21,4 +18,9 @@ urlpatterns = [
     path('posts/create', views.AddPost.as_view(), name='AddPost'),
     path('posts/<int:pk>/update', views.UpdatePost.as_view(), name='UpdatePost'),
     path('posts/<int:pk>/delete', views.DeletePost.as_view(), name='DeletePost'),
+    path('posts/<int:pk>/', views.PostDetail.as_view(), name='post_detail'),
+    # path('posts/<int:post_id>', views.post_detail, name='post_detail'),
+    path('carts/<int:post_id>/create', views.create_cart, name='create_cart'),
+    path('carts/<int:cart_id>/add_to_cart/<int:post_id>', views.add_to_cart, name='add_to_cart'),
+    path('carts/<int:cart_id>/remove_from_cart/<int:post_id>', views.remove_from_cart, name='remove_from_cart'),
 ]

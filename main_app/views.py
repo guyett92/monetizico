@@ -12,14 +12,12 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from botocore.exceptions import ClientError
 from django.dispatch import receiver
-from .models import Product, Cart, Photo, Post, User
+from .models import Product, Cart, Post, User
 from .forms import ProfileForm, UserForm
 import uuid
 import boto3
 import stripe
 
-S3_BASE_URL = "https://s3-us-east-2.amazonaws.com/"
-BUCKET = "cyberpunkmonetizico"
 # Create your views here
 
 # Define the home view
@@ -29,7 +27,7 @@ def home(request):
 
 class AddProduct(LoginRequiredMixin, CreateView):
   model = Product
-  fields = ['name', 'price','description', 'tag']
+  fields = ['name', 'price','description', 'tag', 'photo']
 
   def form_valid(self, form):
     form.instance.seller = self.request.user
@@ -43,12 +41,14 @@ class DeleteProduct(LoginRequiredMixin, DeleteView):
   model = Product
   success_url = '/home/'
 
-def post_detail(request, post_id):
-  pass
-
-class post_index():
-  pass
-
+class PostDetail(DetailView):
+  model = Post
+  
+  def get_context_data(self, **kwargs):
+    context = super().get_context_data(**kwargs)
+    context['cart'] = Cart.objects.first()
+    return context
+    
 class AddPost(LoginRequiredMixin, CreateView):
   model = Post
   fields = ['product', 'quantity']
@@ -70,19 +70,6 @@ class DeletePost(LoginRequiredMixin, DeleteView):
   model = Post
   success_url = '/'
 
-def add_photo(request, post_id):
-  photo_file = request.FILES.get('photo-file', None)
-  if photo_file:
-      s3 = boto3.client('s3')
-      key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
-      try: 
-        s3.upload_fileobj(photo_file, BUCKET, key)
-        url = f"{S3_BASE_URL}{key}"
-        photo = Photo(url=url, post_id=post_id)
-        photo.save()
-      except:
-        print('An error occurred uploading file to S3')
-  return redirect('home')
 
 def about(request):
   return render(request, 'about.html') 
@@ -134,11 +121,20 @@ def delete_photo():
 def cart(request):
   return render(request, 'cart.html')
 
-def add_to_cart():
-  pass
+def create_cart(request, post_id):
+  cart = Cart(user=request.user)
+  cart.save()
+  cart.posts.add(post_id)
+  cart.save()
+  return redirect('cart')
 
+def add_to_cart(request, cart_id, post_id):
+  Cart.objects.get(id=cart_id).posts.add(post_id)
+  return redirect('cart')
+  
 def remove_from_cart():
-  pass 
+   Cart.objects.get(id=cart_id).posts.remove(post_id)
+   return redirect('cart', cart_id=cart_id)
 
 @csrf_exempt
 def stripe_config(request):
@@ -152,7 +148,7 @@ def create_checkout_session(request):
     domain_url = 'http://localhost:8000/'
     stripe.api_key = settings.STRIPE_SECRET_KEY
     try:
-      product = Product.objects.get(id=1)
+      product = Product.objects.get(id=7)
       checkout_session = stripe.checkout.Session.create(
         success_url = domain_url + 'success?session_id={CHECKOUT_SESSION_ID}',
         cancel_url = domain_url + 'cancelled/',
