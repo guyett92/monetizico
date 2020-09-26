@@ -41,12 +41,14 @@ class DeleteProduct(LoginRequiredMixin, DeleteView):
   model = Product
   success_url = '/home/'
 
-def post_detail(request, post_id):
-  pass
-
-class post_index():
-  pass
-
+class PostDetail(DetailView):
+  model = Post
+  
+  def get_context_data(self, **kwargs):
+    context = super().get_context_data(**kwargs)
+    context['cart'] = Cart.objects.first()
+    return context
+    
 class AddPost(LoginRequiredMixin, CreateView):
   model = Post
   fields = ['product', 'quantity']
@@ -119,11 +121,20 @@ def delete_photo():
 def cart(request):
   return render(request, 'cart.html')
 
-def add_to_cart():
-  pass
+def create_cart(request, post_id):
+  cart = Cart(user=request.user)
+  cart.save()
+  cart.posts.add(post_id)
+  cart.save()
+  return redirect('cart')
 
+def add_to_cart(request, cart_id, post_id):
+  Cart.objects.get(id=cart_id).posts.add(post_id)
+  return redirect('cart')
+  
 def remove_from_cart():
-  pass 
+   Cart.objects.get(id=cart_id).posts.remove(post_id)
+   return redirect('cart', cart_id=cart_id)
 
 @csrf_exempt
 def stripe_config(request):

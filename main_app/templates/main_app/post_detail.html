@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+Product: {{ post.product }}
+Quantity: {{ post.quantity }}
+Seller: {{ post.product.seller.first_name }}
+Price: {{ post.product.price }}
+{{cart.user}}
+
+{% if cart %}
+<div>
+    <form action="{% url 'add_to_cart' 9 post.id %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn">Add</button>
+    </form>
+</div>
+{% else %}
+<div>
+    <form action="{% url 'create_cart' post.id %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Create Cart</button>
+    </form>
+</div>
+{% endif %}
+
+{% endblock %}
