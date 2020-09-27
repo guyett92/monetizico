@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load widget_tweaks %}
 {% block title %}
-    Monetizico | Add Product
+    Exchange 🔺 | Add Product
 {% endblock %}
 {% block content %}
 
@@ -47,9 +47,9 @@
         </div>
         
         {% if product %}
-            <input type="submit" value="Edit product">
+            <input id="product_button" type="submit" value="Edit product">
         {% else %}
-            <input type="submit" value="Add product">
+            <input id="product_button" type="submit" value="Add product">
         {% endif %}
     </form>
 </div>

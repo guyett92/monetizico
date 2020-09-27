@@ -23,3 +23,10 @@ def get_posts(user):
             if post.active:
                 posts.append(post)
     return posts
+
+@register.simple_tag
+def get_total(posts):
+    total = 0.0
+    for post in posts:
+        total += post.quantity * post.product.price
+    return "%.2f" % total
