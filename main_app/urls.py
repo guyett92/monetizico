@@ -19,7 +19,6 @@ urlpatterns = [
     path('posts/<int:pk>/update', views.UpdatePost.as_view(), name='UpdatePost'),
     path('posts/<int:pk>/delete', views.DeletePost.as_view(), name='DeletePost'),
     path('posts/<int:pk>/', views.PostDetail.as_view(), name='post_detail'),
-    # path('posts/<int:post_id>', views.post_detail, name='post_detail'),
     path('carts/<int:post_id>/create', views.create_cart, name='create_cart'),
     path('carts/<int:cart_id>/add_to_cart/<int:post_id>', views.add_to_cart, name='add_to_cart'),
     path('carts/<int:cart_id>/remove_from_cart/<int:post_id>', views.remove_from_cart, name='remove_from_cart'),

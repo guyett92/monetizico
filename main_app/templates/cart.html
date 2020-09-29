@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 {% block title %}
-    Monetizico | Cart
+  Exchange 🔺 | {{user.first_name|capfirst}}'s Cart
 {% endblock %}
 {% block content %}
 
-  {% for post in posts %}
-    {{ user_post.product.name }}
-    {{ user_post.quantity }}
-    ${{ user_post.product.price }}
+  {% for post in user_posts %}
+    {{ post.product.name }}
+    {{ post.quantity }}
+    ${{ post.product.price }}
   {% empty %}
     <div>Nothing in your cart</div>
   {% endfor %}

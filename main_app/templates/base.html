@@ -3,6 +3,7 @@
 {% if user.is_authenticated %}
     {% get_cart user as cart %}
     {% get_posts user as user_posts %}
+    {% get_total user_posts as total %}
 {% endif %}
 <!DOCTYPE html>
 <html lang="en">
@@ -80,7 +81,12 @@
                     <div class="navbar-item has-dropdown is-hoverable">
                         <a class="has-text-black navbar-item" href="{% url 'cart' %}" ><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
                         <div class="navbar-dropdown">
-                            {{ posts }}
+                            <!-- FIXME: Add conditional rendering for icon for each product -->
+                            {% for post in user_posts %}
+                                <a class="navbar-item" href="{% url 'post_detail' post.id %}">{{post.quantity}} {{ post.product.name }} - ${{ post.product.price|floatformat:2 }}</a>
+                            {% endfor %}
+                            <hr class="navbar-divider" />
+                            <div class="navbar-item">Total: {{ total }}</div>
                         </div>
                     </div>
                         <div class="navbar-item">
@@ -111,7 +117,7 @@
         <footer class="footer">
             <div class="content has-text-centered">
                 <h1>SITEMAP</h1>
-                <p>Copyright Monetizico &copy; {% now "Y" %}</p>
+                <p>Copyright Exchange &copy; {% now "Y" %}</p>
             </div>
         </footer>
     </body>
