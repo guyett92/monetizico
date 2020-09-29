@@ -26,5 +26,5 @@ urlpatterns = [
     path('carts/<int:cart_id>/remove_from_cart/<int:post_id>', views.remove_from_cart, name='remove_from_cart'),
     path('webhook/', views.stripe_webhook),
     path('contact/', contactView, name='contact'),
-    path('success/', successView, name='success'),
+    path('successemail/', successView, name='successemail'),
 ]

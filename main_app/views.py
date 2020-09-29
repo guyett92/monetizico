@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
+from django.core.mail import send_mail, BadHeaderError
 from django.http.response import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import ListView, DetailView
@@ -13,7 +14,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from botocore.exceptions import ClientError
 from django.dispatch import receiver
 from .models import Product, Cart, Post, User
-from .forms import ProfileForm, UserForm
+from .forms import ProfileForm, UserForm, ContactForm
 from datetime import date, timedelta
 import uuid
 import boto3
@@ -234,8 +235,8 @@ def contactView(request):
                 send_mail(subject, message, from_email, ['admin@example.com'])
             except BadHeaderError:
                 return HttpResponse('Invalid header found.')
-            return redirect('success')
+            return redirect('successemail')
     return render(request, "email.html", {'form': form})
 
 def successView(request):
-    return HttpResponse('Success! Thank you for your message.')
+    return render(request, 'successemail.html')
