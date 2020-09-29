@@ -1,8 +1,63 @@
-<h1>Contact Us</h1>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <div class="form-actions">
-      <button type="submit">Send</button>
-    </div>
-</form>
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% block title %}
+    Exchange 🔺 | Contact Us
+{% endblock %}
+{% block content %}
+
+<!-- Insert photo markup below this comment -->
+
+<br>
+<div class="contact-form container">
+    <h1 class="title has-text-centered">Contact Us</h1>
+    <form class="contact-us-form" action="" method="POST">
+        {% csrf_token %}
+        <div class="field">
+            <label class="label">Name:</label>
+            <div class="control has-icons-right">
+                {{ form.name|add_class:"input" }}
+                <span class="icon is-small is-right">
+                    <i class="fas fa-check"></i>
+                  </span>
+            </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Email:</label>
+          <div class="control has-icons-right">
+              {{ form.from_email|add_class:"input" }}
+              <span class="icon is-small is-right">
+                  <i class="fas fa-check"></i>
+                </span>
+          </div>
+      </div>
+
+          <div class="field">
+            <label class="label">Subject:</label>
+            <div class="control has-icons-right">
+                {{ form.subject|add_class:"input" }}
+              <span class="icon is-small is-right">
+                <i class="fas fa-check"></i>
+              </span>
+            </div>
+          </div>
+
+          <div class="field control">
+            <label class="label bio">Message:</label>
+            {{ form.message|add_class:"textarea" }}
+          </div>
+
+          <div class="field is-grouped">
+            <div class="control">
+              <button type="submit" class="button is-success">Send</button>
+            </div>
+            <div class="">
+              <a href="{% url 'home' %}"class="button is-link">Home</a>
+            </div>
+          </div>
+
+    </form>
+</div>
+<br>
+
+{% endblock %}
