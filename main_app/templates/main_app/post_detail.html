@@ -1,13 +1,12 @@
 {% extends "base.html" %}
 {% block title %}
-    Exchange🔺 | View Post
+    Exchange 🔺 | View Post
 {% endblock %}
-
 {% block content %}
 <br>
 <div class="tile is-parent">
     <article class="tile is-child box">
-  <p class="title product-detail-title	has-text-centered">{{ post.product }}</p>
+  <p class="title product-detail-title  has-text-centered">{{ post.product }}</p>
   </article>
   </div>
 <div class="tile ">
@@ -18,7 +17,6 @@
           </figure>
       </article>
     </div>
-
 <div class="tile is-parent">
     <article class="tile is-child box">
         <br>
@@ -29,9 +27,6 @@
       <p>Expiration Date: {{post.product.exp_date }}</p>
       <p>Sold By: {{ post.product.seller.first_name }}</p>
       <p>{{cart.user}}</p>
-
-      
-
 <br><br>
 {% if cart %}
 <div>
@@ -42,7 +37,6 @@
                 <button type="submit" class="button is-light is-link">Add To Cart</button>
     </form>
 </div>
-
 {% else %}
 <div>
     <form action="{% url 'create_cart' post.id %}" method="post">
