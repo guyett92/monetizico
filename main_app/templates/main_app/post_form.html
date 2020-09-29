@@ -1,15 +1,48 @@
 {% extends "base.html" %}
+{% load widget_tweaks %}
 {% block title %}
     Exchange 🔺 | Add Post
 {% endblock %}
 {% block content %}
 
 <!-- Insert photo markup below this comment -->
- <form action="" method="POST"> 
-     {% csrf_token %} 
-    {{ form.as_p }} 
-    <input type="submit" value="Add post">
-    <a href="{% url 'AddProduct' %}">Create a Product!</a>
- </form>
+
+
+<div class="create-post-form container">
+    <h1 class="title">Create A Post</h1>
+    <form class="create-post-form" action="" method="POST">
+        {% csrf_token %}
+        <div class="field">
+            <label class="label">Product:</label>
+            <div class="control has-icons-right">
+                {{ form.product|add_class:"input" }}
+                <span class="icon is-small is-right">
+                    <i class="fas fa-check"></i>
+                  </span>
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="label">Quantity:</label>
+            <div class="control has-icons-right">
+                {{ form.quantity|add_class:"input" }}
+              <span class="icon is-small is-right">
+                <i class="fas fa-check"></i>
+              </span>
+            </div>
+          </div>
+
+          <div class="field is-grouped">
+            <div class="control">
+              <button class="button is-success">Add Post</button>
+            </div>
+            <div class="">
+              <a href="{% url 'AddProduct' %}"class="button is-link">Create Product</a>
+            </div>
+          </div>
+
+    </form>
+</div>
+
 
 {% endblock %}

@@ -30,7 +30,7 @@
 <br><br>
 {% if cart %}
 <div>
-    <form action="{% url 'add_to_cart' 9 post.id %}" method="post">
+    <form action="{% url 'add_to_cart' post.id %}" method="post">
         {% csrf_token %}
         <div class="field is-grouped">
             <div class="control">
