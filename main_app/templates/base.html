@@ -42,7 +42,7 @@
                 <div class="navbar-start">
                     <div class="navbar-item">
                         <a class="navbar-item" href="{% url 'about' %}">ABOUT US</a>
-                        <a class="navbar-item">CONTACT US</a>
+                        <a href="{% url 'contact' %}" class="navbar-item">CONTACT US</a>
                     </div>
                     <div class="navbar-item is-hoverable has-dropdown">
                         {% if user.is_authenticated %}
