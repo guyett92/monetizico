@@ -16,4 +16,10 @@ class ProfileForm(forms.ModelForm):
         model = Profile
         fields = ['avatar', 'birth_date', 'bio']
         widgets = {'birth_date':forms.DateInput(attrs={'type':'date'}),}
+
+class ContactForm(forms.Form):
+    name = forms.CharField(required=True)
+    from_email = forms.EmailField(required=True)
+    subject = forms.CharField(required=True)
+    message = forms.CharField(widget=forms.Textarea, required=True)
   
