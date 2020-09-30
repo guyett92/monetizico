@@ -1,6 +1,6 @@
 from django.urls import path, include
 from django.contrib import admin
-from .views import contactView, successView, SearchResultsView
+from .views import contactView, successView, SearchResultsView, TagSearchView
 from . import views
 
 urlpatterns = [
@@ -28,4 +28,5 @@ urlpatterns = [
     path('contact/', contactView, name='contact'),
     path('successemail/', successView, name='successemail'),
     path('search/', SearchResultsView.as_view(template_name='post_list.html'), name='post_list'),
+    path('tags/', TagSearchView.as_view(template_name='tag_search.html'), name='tag_search'),
 ]

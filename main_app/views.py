@@ -251,3 +251,11 @@ class SearchResultsView(ListView):
     query = self.request.GET.get('q')
     post_list = Post.objects.filter(product__name__icontains=query)
     return post_list
+
+class TagSearchView(ListView):
+  model = Post
+
+  def get_queryset(self):
+    query = self.request.GET.get('q')
+    post_list = Post.objects.filter(product__tag=query)
+    return post_list
