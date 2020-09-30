@@ -60,17 +60,17 @@
                         </div>
                     </div>
                     
-                    <form class="navbar-item">
+                    <form action="{% url 'post_list' %}" method="get" class="navbar-item">
                         <div class="field has-addons">
                             <div class="control">
-                                <input class="input" type="text" name="search" placeholder="Search">
+                                <input class="input" type="text" name="q" placeholder="Search">
                             </div>
                             <div class="control">
-                                <a class="button is-info">
+                                <button type="submit" class="button is-info">
                                     <span class="icon is-small">
                                         <i class="fa fa-search"></i>
                                     </span>
-                                </a>
+                                </button>
                             </div>
                         </div>
                     </form>
