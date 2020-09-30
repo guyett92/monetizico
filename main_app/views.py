@@ -134,9 +134,9 @@ def add_to_cart(request, cart_id, post_id):
   Cart.objects.get(id=cart_id).posts.add(post_id)
   return redirect('cart')
   
-def remove_from_cart():
-   Cart.objects.get(id=cart_id).posts.remove(post_id)
-   return redirect('cart', cart_id=cart_id)
+def remove_from_cart(request, cart_id, post_id):
+  Cart.objects.get(id=cart_id).posts.remove(post_id)
+  return redirect('cart')
 
 @csrf_exempt
 def stripe_config(request):
