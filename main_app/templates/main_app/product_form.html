@@ -5,8 +5,11 @@
 {% endblock %}
 {% block content %}
 
+
+
+<br>
 <div class="add-product-form container">
-    <h1 class="title">Add a Product</h1>
+    <h1 class="title has-text-centered">Add A Product</h1>
     <form class="add-product-form" action="" enctype="multipart/form-data" method="POST">
         {% csrf_token %}
         <div class="field">
@@ -36,22 +39,33 @@
           </div>
         </div>
 
-        <div class="field ">
+        <div class="field">
             <label class="label">Tag:</label>
-            {{ form.tag }}
+            <div class="control has-icons-right">
+                {{ form.tag|add_class:"input" }}
+                <span class="icon is-small is-right">
+                    <i class="fas fa-check"></i>
+                  </span>
+            </div>
         </div>
 
+        <label class="label">Upload Photo: </label> 
         <div class="file has-name control field">
-        <label class="label">Upload Photo: </label>
             {{ form.photo|add_class:"file-cta" }}
         </div>
         
         {% if product %}
-            <input type="submit" value="Edit product">
+        <div class="field is-grouped">
+            <div class="control">
+            <input type="submit" class="button is-warning" value="Edit Product">
+        </div>
         {% else %}
-            <input type="submit" value="Add product">
+        <div class="control">
+            <input type="submit" class="button is-success" value="Add Product">
+        </div>
+    </div>  
         {% endif %}
     </form>
-</div>
+</div> <br>
 
 {% endblock %}

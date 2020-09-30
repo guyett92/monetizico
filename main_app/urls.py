@@ -1,4 +1,6 @@
 from django.urls import path, include
+from django.contrib import admin
+from .views import contactView, successView, SearchResultsView
 from . import views
 
 urlpatterns = [
@@ -23,4 +25,7 @@ urlpatterns = [
     path('carts/<int:cart_id>/add_to_cart/<int:post_id>', views.add_to_cart, name='add_to_cart'),
     path('carts/<int:cart_id>/remove_from_cart/<int:post_id>', views.remove_from_cart, name='remove_from_cart'),
     path('webhook/', views.stripe_webhook),
+    path('contact/', contactView, name='contact'),
+    path('successemail/', successView, name='successemail'),
+    path('search/', SearchResultsView.as_view(template_name='post_list.html'), name='post_list'),
 ]

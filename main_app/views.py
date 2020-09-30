@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
+from django.core.mail import send_mail, BadHeaderError
 from django.http.response import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import ListView, DetailView
@@ -12,13 +13,15 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from botocore.exceptions import ClientError
 from django.dispatch import receiver
+from django.contrib.postgres.search import SearchQuery
 from .models import Product, Cart, Post, User
-from .forms import ProfileForm, UserForm
+from .forms import ProfileForm, UserForm, ContactForm
 from datetime import date, timedelta
 import uuid
 import boto3
 import stripe
 import environ
+import json
 
 env = environ.Env()
 environ.Env.read_env()
@@ -55,11 +58,7 @@ class DeleteProduct(LoginRequiredMixin, DeleteView):
 
 class PostDetail(DetailView):
   model = Post
-  
-  def get_context_data(self, **kwargs):
-    context = super().get_context_data(**kwargs)
-    context['cart'] = Cart.objects.first()
-    return context
+
     
 class AddPost(LoginRequiredMixin, CreateView):
   model = Post
@@ -168,13 +167,14 @@ def create_checkout_session(request):
     domain_url = 'http://localhost:8000/'
     stripe.api_key = settings.STRIPE_SECRET_KEY
     try:
-      products = Cart.objects.all()
+      products = Cart.objects.filter(user=request.user)
       checkout_session = stripe.checkout.Session.create(
         success_url = domain_url + 'success?session_id={CHECKOUT_SESSION_ID}',
         cancel_url = domain_url + 'cancelled/',
         payment_method_types = ['card'],
         mode = 'payment',
-        line_items = get_products(products)
+        line_items = get_products(products),
+        metadata = { 'user': request.user }
       )
       return JsonResponse({'sessionId': checkout_session['id']})
     except Exception as e:
@@ -201,8 +201,12 @@ def stripe_webhook(request):
   
   if event['type'] == 'checkout.session.completed':
     print("Payment was successful")
+    print(payload)
+    
     # set posts to inactive
-    products = Cart.objects.all()
+    user = payload.decode('UTF-8').split('"user": ')[1].split('"')[1]
+    user_id = User.objects.filter(username=user)[0].id
+    products = Cart.objects.filter(user=user_id)
     for product in products:
       print(product)
       posts = product.posts.all()
@@ -219,3 +223,31 @@ def success(request):
 
 def cancelled(request):
   return render(request, 'cancelled.html')
+
+##Django Email
+def contactView(request):
+    if request.method == 'GET':
+        form = ContactForm()
+    else:
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            subject = form.cleaned_data['subject']
+            from_email = form.cleaned_data['from_email']
+            message = form.cleaned_data['message']
+            try:
+                send_mail(subject, message, from_email, ['admin@example.com'])
+            except BadHeaderError:
+                return HttpResponse('Invalid header found.')
+            return redirect('successemail')
+    return render(request, "email.html", {'form': form})
+
+def successView(request):
+    return render(request, 'successemail.html')
+  
+class SearchResultsView(ListView):
+  model = Post
+
+  def get_queryset(self):
+    query = self.request.GET.get('q')
+    post_list = Post.objects.filter(product__name__icontains=query)
+    return post_list

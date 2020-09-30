@@ -34,7 +34,7 @@
                 <div class="tile is-parent is-vertical is-3">
                     <div class="tile is-child">
                         <figure class="image is-1by1">
-                            <img class="is-rounded" src="{{ post.product.photo.url }}" alt="Photo of product">
+                            <a href="{% url 'post_detail' post.id %}"><img class="is-rounded" src="{{ post.product.photo.url }}" alt="Photo of product"></a>
                         </figure>
                     </div>
                 </div>

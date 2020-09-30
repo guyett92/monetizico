@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django_s3_storage',
     'main_app',
     'widget_tweaks',
+    'django.contrib.postgres',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -157,3 +158,7 @@ AWS_S3_BUCKET_AUTH_STATIC = False
 AWS_S3_BUCKET_AUTH = False
 AWS_S3_MAX_AGE_SECONDS = 60 * 60 * 24 * 365
 AWS_S3_MAX_AGE_SECONDS_CACHED_STATIC = 60 * 60 * 24 * 265
+
+#Django Email
+DEFAULT_FROM_EMAIL = 'tgallegosslp@gmail.com'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
