@@ -6,27 +6,26 @@
 <br>
 <div class="tile is-parent">
     <article class="tile is-child box">
-  <p class="title product-detail-title  has-text-centered">{{ post.product }}</p>
+  <p class="title product-detail-title  has-text-centered is-size-1 has-text-weight-bold">{{ post.product }}</p>
   </article>
   </div>
 <div class="tile ">
     <div class="tile is-parent">
       <article class="tile is-child box">
-        <figure class="image is-4by3">
-            <img src="https://i.imgur.com/cnP9D2q.jpg">
+        <figure class="image is-3by2">
+             <img src="{{ post.product.photo.url }}" />
           </figure>
       </article>
     </div>
 <div class="tile is-parent">
     <article class="tile is-child box">
         <br>
-        <p class="subtitle">Price: ${{ post.product.price }}</p>
-        <p class="subtitle">Description: {{ post.product.description }}</p>
-        <p class="">Quantity: {{ post.quantity }}</p>
-      <p>Tag:{{ post.product.tag }}</p>
-      <p>Expiration Date: {{post.product.exp_date }}</p>
-      <p>Sold By: {{ post.product.seller.first_name }}</p>
-      <p>{{cart.0.user.first_name}}</p>
+        <p class="subtitle is-size-3">Price: ${{ post.product.price }}</p>
+        <p class="subtitle is-size-3">Description: {{ post.product.description }}</p>
+        <p class="is-size-4">Quantity: {{ post.quantity }}</p>
+        <p class="is-size-4">Tag:{{ post.product.tag }}</p>
+        <p class="is-size-4">Expiration Date: {{ post.exp_date }}</p>
+        <p class="is-size-4">Sold By: {{ post.product.seller.first_name }}</p>
 <br><br>
 {% if cart %}
 <div>
@@ -34,7 +33,7 @@
         {% csrf_token %}
         <div class="field is-grouped">
             <div class="control">
-                <button type="submit" class="button is-light is-link">Add To Cart</button>
+                <button type="submit" class="button is-light is-link is-size-3">Add To Cart</button>
     </form>
 </div>
 {% else %}
@@ -43,17 +42,18 @@
         {% csrf_token %}
         <div class="field is-grouped">
             <div class="control">
-                <button class="button is-success" type="submit">Create Cart</button>
+                <button class="button is-success is-size-3" type="submit">Create Cart</button>
             </div>
         </div>
     </form>
     {% endif %} <br>
     <div class="field is-grouped">
         <div class="control field">
-            <a class="button is-link" href="{% url 'home' %}" type="submit">Continue Shopping</a>
+            <a class="button is-link is-size-3" href="{% url 'home' %}" type="submit">Continue Shopping</a>
         </div>
     </div>
 </div>
     </div>
+</div>
 </div>
 {% endblock %}

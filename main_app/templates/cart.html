@@ -3,18 +3,47 @@
   Exchange 🔺 | {{user.first_name|capfirst}}'s Cart
 {% endblock %}
 {% block content %}
+<br>
+<h1 class="title has-text-centered is-size-2">{{cart.0.user.first_name}}'s Cart</h1>
+
 
   {% for post in user_posts %}
-    {{ post.product.name }}
-    {{ post.quantity }}
-    ${{ post.product.price }}
+  <div class="container has-text-centered">
+    <div class="tile is-parent has-text-centered">
+    <div class="tile  is-parent is-vertical is-4">
+    <article class="tile is-child notification level">
+      <p class="title">{{ post.product.name }}</p>
+      <p class="subtitle">Quantity: {{ post.quantity }}</p>
+        <p class="subtitle">Price: ${{ post.product.price }}</p>
+      <figure class="image is-12by12">
+        <img src="{{ post.product.photo.url }}">
+      </figure>
+      <br>
+      <form action="{% url 'remove_from_cart' cart.0.id post.id %}" method="POST">
+        {% csrf_token %}
+      <div class="field is-grouped">
+        <div class="control">
+          <button class="button is-warning is-size-4" type="submit">Remove🗑️</button>
+        </div>
+        </div>
+      </form>
+    </article>
+  </div>
+</div>
+
+   
   {% empty %}
-    <div>Nothing in your cart</div>
+    <div class="subtitle has-text-centered">Nothing in your cart</div>
   {% endfor %}
 
   <section class="section">
-      <div class="container">
-        <button class="button is-primary" id="submitBtn">Purchase!</button>
+      <div class="container control field ">
+        <button class="button is-primary is-size-4 has-text-centered is-grouped" id="submitBtn">Checkout</button>
       </div>
+      <div class="control field ">
+        <a class="button is-link is-size-4 has-text-centered is-grouped" href="{% url 'home' %}" type="submit">Continue Shopping</a>
+    </div>
   </section>
+  </div>
+  
 {% endblock %}
