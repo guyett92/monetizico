@@ -26,11 +26,11 @@
       <p>Tag:{{ post.product.tag }}</p>
       <p>Expiration Date: {{post.product.exp_date }}</p>
       <p>Sold By: {{ post.product.seller.first_name }}</p>
-      <p>{{cart.user}}</p>
+      <p>{{cart.0.user.first_name}}</p>
 <br><br>
 {% if cart %}
 <div>
-    <form action="{% url 'add_to_cart' post.id %}" method="post">
+    <form action="{% url 'add_to_cart' cart.0.id post.id %}" method="post">
         {% csrf_token %}
         <div class="field is-grouped">
             <div class="control">
