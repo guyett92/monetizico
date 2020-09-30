@@ -13,11 +13,6 @@
         </div>
         {% if posts %}
         <div class="tile is-vertical is-parent">
-            <div id="carousel" class="tile is-12 notification is-danger">
-                <div class="tile">
-                    Carousel
-                </div>
-            </div>
             <div class="tile is-ancestor">
                 {% for post in posts|slice:"0:4" %}
                 <div class="tile is-parent is-vertical is-3">
