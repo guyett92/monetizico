@@ -4,8 +4,15 @@
 {% endblock %}
 {% block content %}
   <section class="section">
-    <div class="container">
-      <p>Your payment succeeded.</p>
+    <div class="subtitle has-text-centered">
+      <p>Your payment has succeeded.</p>
+
+  <section class="section">
+      <div class="control field ">
+        <a class="button is-link is-size-5 has-text-centered is-grouped" href="{% url 'home' %}" type="submit">Continue Shopping</a>
+    </div>
+  </section>
+  </div>
     </div>
   </section>
 {% endblock %}
