@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}
+    Exchange 🔺 | Search
+{% endblock %}
+{% block content %}
+    <ul>
+    {% for post in post_list %}
+      <li>
+        {{ post.product.name }}
+      </li>
+    {% endfor %}
+  </ul>
+
+  hi
+
+{% endblock %}

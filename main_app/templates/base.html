@@ -74,6 +74,30 @@
                             </div>
                         </div>
                     </form>
+                    <form action="{% url 'tag_search' %}" class="navbar-item" method="get">
+                        <div class="field">
+                            <p class="control has-icons-left">
+                                <span class="select">
+                                    <select name="q" onchange="this.form.submit()" id="tags">
+                                        <option>Choose Category</option>
+                                        <option value="A">Animals</option>
+                                        <option value="B">Books</option>
+                                        <option value="C">Clothes</option>
+                                        <option value="E">Electronics</option>
+                                        <option value="F">Furniture</option>
+                                        <option value="H">Household Goods</option>
+                                        <option value="J">Jewelry</option>
+                                        <option value="M">Makeup</option>
+                                        <option value="S">Sports</option>
+                                        <option value="V">Vehicles</option>
+                                    </select>
+                                </span>
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-th-large"></i>
+                                </span>
+                            </p>
+                        </div>
+                    </form>
                 </div>
                 <div class="navbar-end">
                     {% if user.is_authenticated %}
@@ -85,15 +109,20 @@
                                 <a class="navbar-item" href="{% url 'post_detail' post.id %}">{{post.quantity}} {{ post.product.name }} - ${{ post.product.price|floatformat:2 }}</a>
                             {% endfor %}
                             <hr class="navbar-divider" />
-                            <div class="navbar-item">Total: {{ total }}</div>
+                            <a class="navbar-item" href="{% url 'cart' %}"><div>Total: ${{ total }}</div></a>
                         </div>
                     </div>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+
                         <div class="navbar-item">
                             <div class="buttons">
                                 <a id="logout" class="button" href="{% url 'logout' %}">
                                     <strong>Logout</strong>
                                 </a>
                             </div>
+                        </div>
+                        <div>
+                            &nbsp;&nbsp;&nbsp;&nbsp;
                         </div>
                     {% else %}
                         <div class="navbar-item">
