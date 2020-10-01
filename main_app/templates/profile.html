@@ -26,6 +26,26 @@
       </div>
     </div>
   </div>
+  <form action="{% url 'delete_product' %}" method="post">
+    {% csrf_token %}
+    <div class="field">
+        <p class="control has-icons-left">
+            <span class="select">
+                <select name="product_id" id="products">
+                    <option>Choose Product</option>
+                    {% for product in products %}
+                      <option value="{{ product.id }}">{{ product.name }}</option>
+                    {% endfor %}
+                </select>
+            </span>
+            <span class="icon is-small is-left">
+                <i class="fas fa-th-large"></i>
+            </span>
+        </p>
+    </div>
+    <button type="submit" class="button is-danger">Delete</button>
+</form>
+
 </div>
 
 {% endblock %}

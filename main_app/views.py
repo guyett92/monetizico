@@ -68,9 +68,11 @@ class UpdateProduct(LoginRequiredMixin, UpdateView):
   
 class DeleteProduct(LoginRequiredMixin, DeleteView):
   model = Product
-  # objects_to_delete = Product.objects.filter(id=)
-  # objects_to_delete.delete() FIXME: fix this
   success_url = '/'
+
+def delete_product(request):
+  Product.objects.filter(id=request.POST['product_id']).delete()
+  return render(request, 'home.html')
 
 class PostDetail(DetailView):
   model = Post
