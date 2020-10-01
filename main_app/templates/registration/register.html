@@ -5,7 +5,7 @@
 {% block content %}
 <div class="register">
   <h1 class="title">REGISTER YOUR ACCOUNT</h1>
-  <form class="register-form" method="post">
+  <form class="register-form" enctype="multipart/form-data" method="post">
       {% csrf_token %}
       <div class="field">
         <label class="label">Username:</label>
