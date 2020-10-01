@@ -4,11 +4,23 @@
 {% endblock %}
 {% block content %}
 
+<section class="hero is-dark is-bold">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">
+          Exchange
+        </h1>
+        <h2 class="subtitle">
+          An easy-exchange for a modern seller
+        </h2>
+      </div>
+    </div>
+  </section>
 <section class="section">
     <div class="tile is-ancestor">
         <div class="tile is-parent is-2 notification fixed-sidebar">
             <p class="tile is-child">
-                Remove me?
+                Remove me? I look better with a hero now but I don't know if I fit the mold...
             </p>
         </div>
         {% if posts %}
@@ -35,15 +47,15 @@
                 </div>
                 {% endfor %}
             </div>
-            <div class="tile is-ancestor">
+        </div>
             {% else %}
-                <div class="tile is-parent notification">
+            <div class="tile is-1"></div>
+                <div class="tile fixed-sidebar is-parent notification">
                     <div class="tile has-text-centered is-child">
                         <h1 class="title is-1">No products have been posted!</h1>
                     </div>
                 </div>
-            </div>
-        </div>
+            <div class="tile is-1"></div>
         {% endif %}
     </div>
 </section>                
