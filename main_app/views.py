@@ -81,6 +81,8 @@ class PostDetail(DetailView):
 class AddPost(LoginRequiredMixin, CreateView):
   model = Post
   fields = ['product']
+
+  #FIXME: Add a way to limit the user if a product is already active
   
   def get_form(self, form_class=None):
     form = super().get_form(form_class=None)
