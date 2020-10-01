@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% block title %}
+    Exchange 🔺 | Update Post
+{% endblock %}
+{% block content %}
+    <div class="add-product-form container">
+        <h1 class="title has-text-centered">Update Post</h1>
+        <form class="add-product-form" action="" enctype="multipart/form-data" method="POST">
+            {% csrf_token %}
+            <div class="field">
+                <label class="label">Name:</label>
+                <div class="control has-icons-right">
+                    {{ product_form.name|add_class:"input" }}
+                    <span class="icon is-small is-right">
+                        <i class="fas fa-check"></i>
+                      </span>
+                </div>
+            </div>
+    
+            <div class="field">
+                <label class="label">Price:</label>
+                <div class="control has-icons-right">
+                    {{ product_form.price|add_class:"input" }}
+                  <span class="icon is-small is-right">
+                    <i class="fas fa-check"></i>
+                  </span>
+                </div>
+              </div>
+    
+              <div class="field ">
+                <label class="label description">Description:</label>
+                <div class="control">
+                {{ product_form.description|add_class:"textarea is-hovered"}}
+              </div>
+            </div>
+    
+            <div class="field">
+                <label class="label">Tag:</label>
+                <div class="control has-icons-right">
+                    {{ product_form.tag|add_class:"input" }}
+                    <span class="icon is-small is-right">
+                        <i class="fas fa-check"></i>
+                      </span>
+                </div>
+            </div>
+    
+            <label class="label">Upload Photo: </label> 
+            <div class="file has-name control field">
+                {{ product_form.photo|add_class:"file-cta" }}
+            </div>
+
+            <div class="field">
+                <label class="label">Quantity:</label>
+                <div class="control has-icons-right">
+                    {{ post_form.quantity|add_class:"input" }}
+                  <span class="icon is-small is-right">
+                    <i class="fas fa-check"></i>
+                  </span>
+                </div>
+              </div>
+            
+            <div class="field is-grouped">
+                <div class="control">
+                <input type="submit" class="button is-warning" value="Submit">
+            </div>
+
+        </form>
+    </div>
+{% endblock %}

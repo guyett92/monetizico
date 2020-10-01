@@ -22,11 +22,12 @@
         <br>
         <p class="subtitle is-size-3">Price: ${{ post.product.price }}</p>
         <p class="subtitle is-size-3">Description: {{ post.product.description }}</p>
-        <p class="is-size-4">Quantity: {{ post.quantity }}</p>
-        <p class="is-size-4">Tag:{{ post.product.tag }}</p>
+        <p class="is-size-4">Quantity: {{ post.product.quantity }}</p>
+        <p class="is-size-4">Tag: {{ post.product.get_tag_display }}</p>
         <p class="is-size-4">Expiration Date: {{ post.exp_date }}</p>
-        <p class="is-size-4">Sold By: {{ post.product.seller.first_name }}</p>
+        <p class="is-size-4">Sold By: {{ post.product.seller.first_name }}&nbsp;{{ post.product.seller.last_name }}</p> <!--Link to profile page later -->
 <br><br>
+{% if post.product.seller != user %}
 {% if cart %}
 <div>
     <form action="{% url 'add_to_cart' cart.0.id post.id %}" method="post">
@@ -46,13 +47,32 @@
             </div>
         </div>
     </form>
-    {% endif %} <br>
+    <br>
     <div class="field is-grouped">
         <div class="control field">
             <a class="button is-link is-size-3" href="{% url 'home' %}" type="submit">Continue Shopping</a>
         </div>
     </div>
-</div>
+    </div>
+    {% endif %}
+    {% else %}
+    <div>
+        <form action="{% url 'UpdateProduct' post.product.id %}" method="post">
+            {% csrf_token %}
+            <div class="field is-grouped">
+                <div class="control">
+                    <button class="button is-success is-size-3" type="submit">Update Post</button>
+                </div>
+            </div>
+        </form>
+        <br>
+        <div class="field is-grouped">
+            <div class="control">
+                <a class="button is-danger is-size-3" href="{% url 'DeletePost' post.id %}" type="submit">Delete Post</a>
+            </div>
+        </div>
+        </div>
+    {% endif %}
     </div>
 </div>
 </div>

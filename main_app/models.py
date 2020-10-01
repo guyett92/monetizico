@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.urls import reverse
 from django_s3_storage.storage import S3Storage
+from django.core.validators import MinValueValidator
 
 storage = S3Storage(aws_s3_bucket_name='exchange-2')
 
@@ -33,10 +34,11 @@ class Profile(models.Model):
 class Product(models.Model):
     description = models.TextField(max_length=1000)
     name = models.CharField(max_length=100)
-    price = models.IntegerField()
+    price = models.FloatField(validators=[MinValueValidator(0.01)])
     tag = models.CharField(max_length=1, choices=TAGS, default=TAGS[0][0])
     seller = models.ForeignKey(User, on_delete=models.CASCADE)
     photo = models.ImageField(upload_to=storage)
+    quantity = models.PositiveIntegerField(default=1)
 
     def get_absolute_url(self):
         return reverse('AddPost')
@@ -47,7 +49,6 @@ class Product(models.Model):
 class Post(models.Model):
     exp_date = models.DateField(default=(date.today()+timedelta(days=30)).isoformat()) 
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    quantity = models.PositiveIntegerField(default=1)
     active = models.BooleanField(default=True)
 
     def __str__(self):

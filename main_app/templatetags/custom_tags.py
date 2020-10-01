@@ -11,6 +11,10 @@ def product_count(user):
     return False
 
 @register.simple_tag
+def get_products(user):
+    return Product.objects.filter(seller=user.id)
+
+@register.simple_tag
 def get_cart(user):
     return Cart.objects.filter(user=user.id)
 
@@ -26,7 +30,7 @@ def get_posts(user):
 
 @register.simple_tag
 def get_total(posts):
-    total = 0.0
+    total = 0.00
     for post in posts:
-        total += post.quantity * post.product.price
+        total += post.product.quantity * post.product.price
     return "%.2f" % total

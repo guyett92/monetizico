@@ -4,6 +4,7 @@
     {% get_cart user as cart %}
     {% get_posts user as user_posts %}
     {% get_total user_posts as total %}
+    {% get_products user as products %}
 {% endif %}
 <!DOCTYPE html>
 <html lang="en">
@@ -16,6 +17,7 @@
         <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
         <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script defer src="https://js.stripe.com/v3/"></script>
         <script  defer src="{% static 'js/main.js' %}"></script>
         <title>
@@ -36,7 +38,6 @@
                     <span aria-hidden="true"></span>
                 </a>
             </div>
-            <!-- WILL NEED TO USE JAVASCRIPT TO TOGGLE BURGER AND MENU -->
             <div id="navbarBasicExample" class="navbar-menu">
                 <div class="navbar-start">
                     <div class="navbar-item">
@@ -104,9 +105,8 @@
                     <div class="navbar-item has-dropdown is-hoverable">
                         <a class="has-text-black navbar-item" href="{% url 'cart' %}" ><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
                         <div class="navbar-dropdown">
-                            <!-- FIXME: Add conditional rendering for icon for each product -->
                             {% for post in user_posts %}
-                                <a class="navbar-item" href="{% url 'post_detail' post.id %}">{{post.quantity}} {{ post.product.name }} - ${{ post.product.price|floatformat:2 }}</a>
+                                <a class="navbar-item" href="{% url 'post_detail' post.id %}">{{post.product.quantity}} {{ post.product.name }} - ${{ post.product.price|floatformat:2 }}</a>
                             {% endfor %}
                             <hr class="navbar-divider" />
                             <a class="navbar-item" href="{% url 'cart' %}"><div>Total: ${{ total }}</div></a>

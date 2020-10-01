@@ -1,7 +1,8 @@
 from django.forms import ModelForm
-from .models import User, Profile, Product
+from .models import User, Profile, Product, Post
 from django import forms
 from datetime import date
+
 
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
@@ -22,4 +23,3 @@ class ContactForm(forms.Form):
     from_email = forms.EmailField(required=True)
     subject = forms.CharField(required=True)
     message = forms.CharField(widget=forms.Textarea, required=True)
-  
