@@ -72,7 +72,7 @@ class DeleteProduct(LoginRequiredMixin, DeleteView):
 
 def delete_product(request):
   Product.objects.filter(id=request.POST['product_id']).delete()
-  return render(request, 'home.html')
+  return render(request, 'profile.html')
 
 class PostDetail(DetailView):
   model = Post

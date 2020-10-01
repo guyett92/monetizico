@@ -14,15 +14,15 @@ storage = S3Storage(aws_s3_bucket_name='exchange-2')
 # Can reorder or make more
 TAGS = (
     ('A', 'Animals'),
-    ('V', 'Vehicles'),
-    ('H', 'Household Goods'),
-    ('F', 'Furniture'),
-    ('E', 'Electronics'),
+    ('B', 'Books'),
     ('C', 'Clothes'),
+    ('E', 'Electronics'),
+    ('F', 'Furniture'),
+    ('H', 'Household Goods'),
     ('J', 'Jewelry'),
     ('M', 'Makeup'),
-    ('B', 'Books'),
     ('S', 'Sports'),
+    ('V', 'Vehicles'),
 )
 
 class Profile(models.Model):

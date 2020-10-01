@@ -34,3 +34,10 @@ def get_total(posts):
     for post in posts:
         total += post.product.quantity * post.product.price
     return "%.2f" % total
+
+@register.filter
+def placeholder(field, args=None):
+    if args == None:
+        return field
+    field.field.widget.attrs.update({ "placeholder": args })
+    return field
