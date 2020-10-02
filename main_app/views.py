@@ -22,9 +22,23 @@ import boto3
 import stripe
 import environ
 import json
+import math
 
 env = environ.Env()
 environ.Env.read_env()
+
+TAGS = (
+    ('A', 'Animals'),
+    ('V', 'Vehicles'),
+    ('H', 'Household Goods'),
+    ('F', 'Furniture'),
+    ('E', 'Electronics'),
+    ('C', 'Clothes'),
+    ('J', 'Jewelry'),
+    ('M', 'Makeup'),
+    ('B', 'Books'),
+    ('S', 'Sports'),
+)
 
 # Create your views here
 
@@ -42,7 +56,7 @@ def home(request):
 
 class AddProduct(LoginRequiredMixin, CreateView):
   model = Product
-  fields = ['name', 'price','description', 'tag', 'photo']
+  fields = ['name', 'price','description', 'tag', 'quantity', 'photo']
 
   def form_valid(self, form):
     form.instance.seller = self.request.user
@@ -50,11 +64,15 @@ class AddProduct(LoginRequiredMixin, CreateView):
     
 class UpdateProduct(LoginRequiredMixin, UpdateView):
   model = Product
-  fields = ['name', 'description', 'price', 'tag']
+  fields = ['name', 'description', 'price', 'tag', 'quantity', 'photo']
   
 class DeleteProduct(LoginRequiredMixin, DeleteView):
   model = Product
-  success_url = '/home/'
+  success_url = '/'
+
+def delete_product(request):
+  Product.objects.filter(id=request.POST['product_id']).delete()
+  return render(request, 'profile.html')
 
 class PostDetail(DetailView):
   model = Post
@@ -62,7 +80,9 @@ class PostDetail(DetailView):
     
 class AddPost(LoginRequiredMixin, CreateView):
   model = Post
-  fields = ['product', 'quantity']
+  fields = ['product']
+
+  #FIXME: Add a way to limit the user if a product is already active
   
   def get_form(self, form_class=None):
     form = super().get_form(form_class=None)
@@ -73,9 +93,6 @@ class AddPost(LoginRequiredMixin, CreateView):
     form.instance.user = self.request.user
     return super().form_valid(form)
 
-class UpdatePost(LoginRequiredMixin, UpdateView):
-  model = Post
-  fields = ['product', 'quantity']
   
 class DeletePost(LoginRequiredMixin, DeleteView):
   model = Post
@@ -92,6 +109,8 @@ def update_profile():
 
 def delete_profile():
   pass
+
+
 
 def register(request):
 
@@ -154,9 +173,9 @@ def get_products(products):
       if post.active:
         item = {
           'name': post.product.name,
-          'quantity': post.quantity,
+          'quantity': post.product.quantity,
           'currency': 'usd',
-          'amount': post.product.price * 100, #multiply by 100 d/t doesn't recognize decimal
+          'amount': int(math.floor(post.product.price) * 100), #multiply by 100 d/t doesn't recognize decimal
         }
         lst1.append(item)
   return lst1

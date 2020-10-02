@@ -90,8 +90,6 @@ body {
 
 .fixed-sidebar {
   top: 0.75em;
-  background-color: var(--lblue) !important;
-  color: var(--yellow) !important;
 }
 
 /* Updates is-info class to use lblue background */

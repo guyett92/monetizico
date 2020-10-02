@@ -6,54 +6,76 @@
 <br>
 <div class="tile is-parent">
     <article class="tile is-child box">
-  <p class="title product-detail-title  has-text-centered is-size-1 has-text-weight-bold">{{ post.product }}</p>
-  </article>
-  </div>
+        <p class="title product-detail-title  has-text-centered is-size-1 has-text-weight-bold">{{ post.product }}</p>
+    </article>
+</div>
 <div class="tile ">
     <div class="tile is-parent">
-      <article class="tile is-child box">
-        <figure class="image is-3by2">
-             <img src="{{ post.product.photo.url }}" />
-          </figure>
-      </article>
+        <article class="tile is-child box">
+            <figure class="image is-3by2">
+                <img src="{{ post.product.photo.url }}" />
+            </figure>
+        </article>
     </div>
-<div class="tile is-parent">
-    <article class="tile is-child box">
-        <br>
-        <p class="subtitle is-size-3">Price: ${{ post.product.price }}</p>
-        <p class="subtitle is-size-3">Description: {{ post.product.description }}</p>
-        <p class="is-size-4">Quantity: {{ post.quantity }}</p>
-        <p class="is-size-4">Tag:{{ post.product.tag }}</p>
-        <p class="is-size-4">Expiration Date: {{ post.exp_date }}</p>
-        <p class="is-size-4">Sold By: {{ post.product.seller.first_name }}</p>
-<br><br>
-{% if cart %}
-<div>
-    <form action="{% url 'add_to_cart' cart.0.id post.id %}" method="post">
-        {% csrf_token %}
-        <div class="field is-grouped">
-            <div class="control">
-                <button type="submit" class="button is-light is-link is-size-3">Add To Cart</button>
-    </form>
-</div>
-{% else %}
-<div>
-    <form action="{% url 'create_cart' post.id %}" method="post">
-        {% csrf_token %}
-        <div class="field is-grouped">
-            <div class="control">
-                <button class="button is-success is-size-3" type="submit">Create Cart</button>
-            </div>
+    <div class="tile is-parent">
+        <article class="tile is-child box">
+            <br>
+            <p class="subtitle is-size-3">Price: ${{ post.product.price|floatformat:2 }}</p>
+            <p class="subtitle is-size-3">Description: {{ post.product.description }}</p>
+            <p class="is-size-4">Quantity: {{ post.product.quantity }}</p>
+            <p class="is-size-4">Tag: {{ post.product.get_tag_display }}</p>
+            <p class="is-size-4">Expiration Date: {{ post.exp_date }}</p> <!-- Add countdown feature -->
+            <p class="is-size-4">Sold By: {{ post.product.seller.first_name }}&nbsp;{{ post.product.seller.last_name }}</p> <!--Link to profile page later -->
+            <br><br>
+            {% if post.product.seller != user %}
+                {% if cart %}
+                    <div>
+                        <form action="{% url 'add_to_cart' cart.0.id post.id %}" method="post">
+                            {% csrf_token %}
+                            <div class="field is-grouped">
+                                <div class="control">
+                                    <button type="submit" class="button is-light is-link is-size-3">Add To Cart</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                {% else %}
+                    <div>
+                        <form action="{% url 'create_cart' post.id %}" method="post">
+                            {% csrf_token %}
+                            <div class="field is-grouped">
+                                <div class="control">
+                                    <button class="button is-success is-size-3" type="submit">Create Cart</button>
+                                </div>
+                            </div>
+                        </form>
+                        <br>
+                        <div class="field is-grouped">
+                            <div class="control field">
+                                <a class="button is-link is-size-3" href="{% url 'home' %}" type="submit">Continue Shopping</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% else %}
+                <div>
+                    <form action="{% url 'UpdateProduct' post.product.id %}" method="post">
+                        {% csrf_token %}
+                        <div class="field is-grouped">
+                            <div class="control">
+                                <button class="button is-success is-size-3" type="submit">Update Post</button>
+                            </div>
+                        </div>
+                    </form>
+                    <br>
+                    <div class="field is-grouped">
+                        <div class="control">
+                            <a class="button is-danger is-size-3" href="{% url 'DeletePost' post.id %}" type="submit">Delete Post</a>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
         </div>
-    </form>
-    {% endif %} <br>
-    <div class="field is-grouped">
-        <div class="control field">
-            <a class="button is-link is-size-3" href="{% url 'home' %}" type="submit">Continue Shopping</a>
-        </div>
     </div>
-</div>
-    </div>
-</div>
 </div>
 {% endblock %}
