@@ -91,7 +91,6 @@ class AddPost(LoginRequiredMixin, CreateView):
     products = []
     for post in active_posts:
       products.append(post.product.id)
-    print(products)
     form.fields['product'].queryset = form.fields['product'].queryset.filter(seller = self.request.user)
     for i in range(len(products)):
       form.fields['product'].queryset = form.fields['product'].queryset.exclude(id=products[i])
