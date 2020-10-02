@@ -105,11 +105,15 @@
                     <div class="navbar-item has-dropdown is-hoverable">
                         <a class="has-text-black navbar-item" href="{% url 'cart' %}" ><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
                         <div class="navbar-dropdown">
-                            {% for post in user_posts %}
-                                <a class="navbar-item" href="{% url 'post_detail' post.id %}">{{post.product.quantity}} {{ post.product.name }} - ${{ post.product.price|floatformat:2 }}</a>
-                            {% endfor %}
-                            <hr class="navbar-divider" />
-                            <a class="navbar-item" href="{% url 'cart' %}"><div>Total: ${{ total }}</div></a>
+                            {% if user_posts %}
+                                {% for post in user_posts %}
+                                    <a class="navbar-item" href="{% url 'post_detail' post.id %}">{{post.product.quantity}} {{ post.product.name }} - ${{ post.product.price|floatformat:2 }}</a>
+                                {% endfor %}
+                                <hr class="navbar-divider" />
+                                <a class="navbar-item" href="{% url 'cart' %}"><div>Total: ${{ total }}</div></a>
+                            {% else %}
+                                <div class="navbar-item">Nothing in your cart!</div>
+                            {% endif %}
                         </div>
                     </div>
                     &nbsp;&nbsp;&nbsp;&nbsp;

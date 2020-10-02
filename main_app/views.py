@@ -17,6 +17,7 @@ from django.contrib.postgres.search import SearchQuery
 from .models import Product, Cart, Post, User
 from .forms import ProfileForm, UserForm, ContactForm
 from datetime import date, timedelta
+from django.db.models import Q
 import uuid
 import boto3
 import stripe
@@ -86,7 +87,13 @@ class AddPost(LoginRequiredMixin, CreateView):
   
   def get_form(self, form_class=None):
     form = super().get_form(form_class=None)
+    active_posts = Post.objects.filter(active=True)
+    products = []
+    for post in active_posts:
+      products.append(post.product.id)
     form.fields['product'].queryset = form.fields['product'].queryset.filter(seller = self.request.user)
+    for i in range(len(products)):
+      form.fields['product'].queryset = form.fields['product'].queryset.exclude(id=products[i])
     return form
     
   def form_valid(self, form):
