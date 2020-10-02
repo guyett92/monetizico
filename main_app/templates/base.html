@@ -143,9 +143,45 @@
             {% block content %}
             {% endblock %}
         <footer class="footer">
-            <div class="content has-text-centered">
-                <h1>SITEMAP</h1>
-                <p>Copyright Exchange &copy; {% now "Y" %}</p>
+            <div class="container">
+                <div class="columns">
+                    <div class="column is-4 is-offset-3">
+                        <h2><strong>Pages</strong></h2>
+                        <ul>
+                            <li><a href="{% url 'home' %}"><i class="fas fa-home"></i>&nbsp;Home</a></li>
+                            <li><a href="{% url 'about' %}"><i class="fas fa-info-circle"></i>&nbsp;About</a></li>
+                            <li><a href="{% url 'contact' %}"><i class="fas fa-file-signature"></i>&nbsp;Contact</a></li>
+                            {% if user.is_authenticated %}
+                                <li><a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i>&nbsp;Logout</a></li>
+                            {% endif %}
+                            {% if not user.is_authenticated %}
+                                <li><a href="{% url 'login' %}"><i class="fas fa-sign-in-alt"></i>&nbsp;Login</a></li>
+                                <li><a href="{% url 'register' %}"><i class="fas fa-sign-language"></i>&nbsp;Sign Up</a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                    {% if user.is_authenticated %}
+                    <div class="column is-4">
+                        <h2><strong>User Pages</strong></h2>
+                        <ul>
+                            <li><a href="{% url 'AddProduct' %}"><i class="fas fa-box"></i>&nbsp;Create Product</a></li>
+                            <li><a href="{% url 'AddPost' %}"><i class="fas fa-clipboard"></i>&nbsp;List Product</a></li>
+                            <li><a href="{% url 'profile' %}"><i class="fas fa-user"></i>&nbsp;Profile</a></li>
+                            <li><a href="{% url 'cart' %}"><i class="fas fa-shopping-cart"></i>&nbsp;Cart</a></li>
+                        </ul>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="content has-text-centered">
+                    <p>Copyright Exchange &copy; {% now "Y" %}</p>
+                    <div class="control level-item">
+                        <div class="tags has-addons">
+                            <a href="#"><span class="tag is-dark">John</span></a>
+                            <a href="#"><span class="tag is-info">Tiya</span></a>
+                            <a href="https://aarondguyett.com" target="_blank"><span class="tag is-link">Aaron</span></a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </footer>
     </body>

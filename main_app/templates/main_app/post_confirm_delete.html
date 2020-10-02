@@ -2,6 +2,7 @@
 
 {% block content %}
 
+
 <div class="delete_prompt">
     <div class="has-text-centered">
         <h4 id="delete_header" class="has-text-weight-bold">Are you sure you want to delete this post?</h4>
@@ -13,5 +14,4 @@
         <a class="button is-warning" href="{% url 'post_detail' post.id %}">Cancel</a>
     </form>
 </div>
-
 {% endblock %}
