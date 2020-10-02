@@ -30,8 +30,11 @@
                 <div class="tile is-parent is-vertical is-3">
                     <div class="tile is-child">
                         <figure class="image is-1by1">
-                            <a href="{% url 'post_detail' post.id %}"><img class="is-rounded" src="{{ post.product.photo.url }}" alt="Photo of product"></a>
+                            <a href="{% url 'post_detail' post.id %}"><img class="product_photo" src="{{ post.product.photo.url }}" alt="Photo of product"></a>
                         </figure>
+                        <div class="has-text-centered is-uppercase">
+                           <h5 class="has-text-weight-bold">{{ post.product.name }} - ${{ post.product.price }}</h5>
+                        </div>
                     </div>
                 </div>
                 {% endfor %}
