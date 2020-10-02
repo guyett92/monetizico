@@ -101,3 +101,16 @@ body {
   display: flex;
   justify-content: center;
 }
+
+.product_photo:hover {
+  transform: scale(1.2);
+  /* border: solid var(--lblue) 10px; */
+}
+
+.delete_prompt {
+  margin-top: 150px;
+}
+
+#delete_header {
+  margin-bottom: 40px;
+}
