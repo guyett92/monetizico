@@ -35,7 +35,9 @@ All users can reach out to the Exchange team via email using our contact page.
 
 ## Future Plans
 
-We have many plans for improvements to this initial project. On a small scale, we want to add OAuth via Google to our current method for authenticating and authorizing users. On a larger scale, we hope to add a live chat feature so that users can speak with a member of the Exchange team in real time.
+We have many plans for improvements to this initial project. On a small scale, we want to add OAuth via Google to our current method for authenticating and authorizing users. We would also like to send emails automatically to users upon registration. There are also some changes to the front end that we would like to make, including using modals for our Edit Post functionality.
+
+On a larger scale, we want to allow users to upload multiple photos of products they would like to sell, rather than just one. We also hope to add a live chat feature so that users can speak with a member of the Exchange team in real time.
 
 ## Stats
 **John**
