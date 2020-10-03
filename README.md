@@ -11,7 +11,7 @@ Our hope is that users can feel comfortable buying and selling the things they w
 
 ## Trello Board
 
-Find our Trello Board [here] (https://trello.com/b/WAerKiVW/untitled)
+Find our Trello Board [here](https://trello.com/b/WAerKiVW/untitled)
 
 ## Technologies Used
 Exchange was built with the following technologies:
