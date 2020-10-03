@@ -4,59 +4,65 @@
 {% endblock %}
 {% block content %}
 <br><br>
-<div class="container">
+<div class="container profile-container">
 <div class="tile is-parent">
-    <article class="tile is-child notification is-warning">
-      <p class="title">My Profile</p>
-      
+    <article class="tile is-child notification profile-article">
+      <p class="profile-title title is-2">{{ user.first_name|capfirst }}'s Profile</p>
       <div class="card-content">
         <div class="media">
           <div class="media-left">
-            <figure class="image is-40x40">
-              <img src="{{user.profile.avatar}}" alt="Placeholder image">
+            <figure class="image is-20x20">
+              <img src="{{ user.profile.avatar.url }}" alt="{{ user.first_name}} {{ user.last_name }}">
             </figure>
           </div>
           <div class="media-content">
-            <p class="title is-4">{{user.first_name|capfirst}}{{user.last_name|capfirst}}</p>
-            <p class="subtitle is-6">Username:{{user.username|capfirst}} </p>
+            <p class="title is-4">Name: {{user.first_name|capfirst}} {{user.last_name|capfirst}}</p><br>
+            <p class="title is-4">Username:{{user.username|capfirst}} </p><br>
+            <p class="title is-size-4">Birthdate: {{user.profile.birth_date}} </p>
           </div>
+        </div><br><br>
+        <div class="content subtitle is-4 profile-bio">
+            <label class="has-text-weight-bold">Bio:</label><br>
+            {{user.profile.bio}}
+        </div><br>
+        <div class="has-text-centered is-3">
+        <button type="submit" class="button is-warning is-size-4">Edit Profile</button>
         </div>
-    
-        <p class="subtitle">Birthdate: {{user.profile.birth_date}} </p>
-        
-        <div class="content">
-          {{user.profile.bio}}
-        </div>
-      </div>
+       </div>
+    </article>
     </div>
   </div>
-
-  
-      <div class="content">
-        <!-- Content -->
-      </div>
-    </article>
-  </div>
-  <form action="{% url 'delete_product' %}" method="post">
-    {% csrf_token %}
-    <div class="field">
-        <p class="control has-icons-left">
-            <span class="select">
-                <select name="product_id" id="products">
+  <div class="container">
+    <div class="columns">
+      <div class="column is-12">
+        <div class="tile is-parent del-product">
+          <form action="{% url 'delete_product' %}" method="post">
+            {% csrf_token %}
+            <div class="field has-text-centered">
+              <p class="control has-icons-left">
+                <span class="select">
+                  <select name="product_id" id="products">
                     <option>Choose Product</option>
                     {% for product in products %}
                       <option value="{{ product.id }}">{{ product.name }}</option>
                     {% endfor %}
-                </select>
-            </span>
-            <span class="icon is-small is-left">
-                <i class="fas fa-th-large"></i>
-            </span>
-        </p>
+                  </select>
+                </span>
+                <span class="icon is-small is-left">
+                  <i class="fas fa-th-large"></i>
+                </span>
+              </p>
+            </div>
+            <div class="columns is-centered">
+              <div class="column is-quarter"></div>
+              <div class="column">
+                <button type="submit" class="button is-danger">Delete Product</button>
+              </div>
+              <div class="column is-quarter"></div>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
-    <button type="submit" class="button is-danger">Delete</button>
-</form>
-
-</div>
-
+  </div>
 {% endblock %}

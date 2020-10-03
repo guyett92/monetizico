@@ -103,7 +103,7 @@ body {
 }
 
 .product_photo:hover {
-  transform: scale(1.2);
+  transform: scale(0.85);
   /* border: solid var(--lblue) 10px; */
 }
 
