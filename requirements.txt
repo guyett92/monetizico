@@ -56,7 +56,6 @@ simplejson==3.13.2
 six==1.15.0
 sqlparse==0.3.1
 stripe==2.51.0
-system-service==0.3
 systemd-python==234
 ubuntu-drivers-common==0.0.0
 ufw==0.36
