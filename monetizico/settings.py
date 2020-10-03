@@ -18,7 +18,6 @@ import django_heroku
 env = environ.Env()
 environ.Env.read_env()
 
-django_heroku.settings(locals())
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
@@ -166,3 +165,5 @@ AWS_S3_MAX_AGE_SECONDS_CACHED_STATIC = 60 * 60 * 24 * 265
 #Django Email
 DEFAULT_FROM_EMAIL = 'tgallegosslp@gmail.com'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+django_heroku.settings(locals())
