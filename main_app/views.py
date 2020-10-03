@@ -189,7 +189,7 @@ def get_products(products):
 @csrf_exempt
 def create_checkout_session(request):
   if request.method == 'GET':
-    domain_url = 'https://cyberpunk-exchange.herokuapp.com'
+    domain_url = 'https://cyberpunk-exchange.herokuapp.com/'
     stripe.api_key = settings.STRIPE_SECRET_KEY
     try:
       products = Cart.objects.filter(user=request.user)

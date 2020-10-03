@@ -1,0 +1,127 @@
+:root {
+  --yellow: #f9c80e;
+  --dblue: #004e89;
+  --lblue: #1A659E;
+  --red: #AD1F2D;
+}
+
+html, body {
+  height: 100%;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  box-sizing: inherit;
+}
+
+*:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+.navbar {
+  height: 4rem !important;
+}
+
+.navbar-menu, .navbar-brand {
+  background-color: var(--red) !important;
+}
+
+.logo:hover {
+  background-color: var(--red) !important;
+}
+
+#signup {
+  background-color: var(--dblue) !important;
+  color: var(--yellow) !important;
+}
+
+#login {
+  background-color: var(--yellow) !important;
+  color: var(--dblue) !important;
+}
+
+.content {
+  flex-grow: 1;
+}
+
+#carousel {
+  background-color: var(--lblue) !important;
+}
+
+.navbar-link {
+  color: black !important;
+}
+
+.navbar-start .navbar-item {
+  color: black !important;
+}
+
+.register {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.register > h1 {
+  padding: 10px;
+  font-size: 50px;
+  font-weight: 400;
+  text-decoration: none;
+}
+
+.register > button {
+  margin: 0 auto;
+}
+
+.input {
+  width: 400px;
+}
+
+.footer {
+  margin-top: auto;
+}
+
+.fixed-sidebar {
+  top: 0.75em;
+}
+
+/* Updates is-info class to use lblue background */
+.is-info {
+  background-color: var(--lblue) !important;
+}
+
+#product_form {
+  display: flex;
+  justify-content: center;
+}
+
+.product_photo:hover {
+  transform: scale(0.85);
+  /* border: solid var(--lblue) 10px; */
+}
+
+.delete_prompt {
+  margin-top: 150px;
+}
+
+#remove_item_btn {
+  margin: 0 auto;
+}
+
+.sitemap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#delete_header {
+  margin-bottom: 40px;
+}
