@@ -22,7 +22,7 @@
       <form action="{% url 'remove_from_cart' cart.0.id post.id %}" method="POST">
         {% csrf_token %}
       <div class="field is-grouped">
-        <div class="control">
+        <div id="remove_item_btn" class="control">
           <button class="button is-warning is-size-4" type="submit">Remove🗑️</button>
         </div>
         </div>

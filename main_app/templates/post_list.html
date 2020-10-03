@@ -2,12 +2,34 @@
 
 {% block content %}
 
-<ul>
-    {% for post in post_list %}
-      <li>
-        {{ post.product.name }}
-      </li>
-    {% endfor %}
-  </ul>
+<h1 class="has-text-centered has-text-weight-bold is-size-1">Search Results:</h1>
+<div class="tile is-ancestor">
+  {% if post_list %}
+  <div class="tile is-vertical is-parent">
+      <div class="tile is-ancestor">
+          {% for post in post_list %}
+          <div class="tile is-parent is-vertical is-3">
+              <div class="tile is-child">
+                  <figure class="image is-1by1">
+                      <a href="{% url 'post_detail' post.id %}"><img class="product_photo" src="{{ post.product.photo.url }}" alt="Photo of product"></a>
+                  </figure>
+                  <div class="has-text-centered is-uppercase">
+                     <h5 class="has-text-weight-bold">{{ post.product.name }} - ${{ post.product.price }}</h5>
+                  </div>
+              </div>
+          </div>
+          {% endfor %}
+      </div>
+  </div>
+      {% else %}
+      <div class="tile is-1"></div>
+          <div class="tile fixed-sidebar is-parent notification">
+              <div class="tile has-text-centered is-child">
+                  <h1 class="title is-1">Sorry, nothing found! Try another search or head back <a href="/">home</a> to browse!</h1>
+              </div>
+          </div>
+      <div class="tile is-1"></div>
+  {% endif %}
+</div>
 
 {% endblock %}
