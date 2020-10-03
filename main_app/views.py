@@ -82,8 +82,6 @@ class PostDetail(DetailView):
 class AddPost(LoginRequiredMixin, CreateView):
   model = Post
   fields = ['product']
-
-  #FIXME: Add a way to limit the user if a product is already active
   
   def get_form(self, form_class=None):
     form = super().get_form(form_class=None)
@@ -138,7 +136,7 @@ def register(request):
             profile.save()
             login(request, user)
             messages.success(request, f"Your profile was successfully created!")
-            return redirect('home') #FIXME: redirect to profile page
+            return redirect('profile') 
     else:
             user_form = UserForm()
             profile_form = ProfileForm()
