@@ -1,6 +1,6 @@
 # Exchange
 
-Exchange is a community-focused e-commerce marketplace. We are guided by four key principes:
+Exchange is a community-focused e-commerce marketplace. We are guided by four key principles:
 
 1. Safety
 2. Simplicity
@@ -8,6 +8,8 @@ Exchange is a community-focused e-commerce marketplace. We are guided by four ke
 4. User-Friendliness
 
 Our hope is that users can feel comfortable buying and selling the things they want and the things they need on our site.
+
+Click [here](https://cyberpunk-exchange.herokuapp.com/) to get started!
 
 ## Trello Board
 
