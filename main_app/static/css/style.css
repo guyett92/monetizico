@@ -111,6 +111,17 @@ body {
   margin-top: 150px;
 }
 
+#remove_item_btn {
+  margin: 0 auto;
+}
+
+.sitemap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 #delete_header {
   margin-bottom: 40px;
 }
