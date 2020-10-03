@@ -1,6 +1,6 @@
 # Exchange
 
-Exchange is a community-focused e-comm marketplace. We are guided by four key principes:
+Exchange is a community-focused e-commerce marketplace. We are guided by four key principes:
 
 1. Safety
 2. Simplicity
@@ -18,6 +18,7 @@ Exchange was built with the following technologies:
 
 * HTML, CSS, Python
 * Django
+* PostgreSQL
 * [Bulma](https://bulma.io/)
 * [Stripe](https://stripe.com/)
 * [Amazon Web Services](https://aws.amazon.com/?nc2=h_lg)
@@ -42,3 +43,5 @@ On a larger scale, we want to allow users to upload multiple photos of products 
 ## Stats
 **John**
 ![John](https://wakatime.com/share/@c7f195de-5dfc-4305-9fe2-dd9b563f269a/b9b61c6f-4224-4adb-ae49-bea2471735ae.png)
+**Aaron**
+![Aaron](https://wakatime.com/share/@217ac902-409e-4248-9990-006962992dc1/6b0bc798-fbe3-4d72-8977-554ff80b6175.svg)
