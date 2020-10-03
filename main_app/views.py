@@ -121,7 +121,7 @@ def register(request):
 
     if request.method == 'POST':
         user_form = UserForm(request.POST)
-        profile_form = ProfileForm(request.POST)
+        profile_form = ProfileForm(request.POST or None, request.FILES or None)
         if user_form.is_valid() and profile_form.is_valid() and user_form.cleaned_data['password'] == user_form.cleaned_data['password_confirm']:
             user = User.objects.create_user(
               username = user_form.cleaned_data['username'],
@@ -132,6 +132,7 @@ def register(request):
             )
             user.save()
             profile = profile_form.save(commit=False)
+            print(profile)
             profile.user = user
             profile.save()
             login(request, user)
