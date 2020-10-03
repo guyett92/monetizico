@@ -38,5 +38,5 @@ All users can reach out to the Exchange team via email using our contact page.
 We have many plans for improvements to this initial project. On a small scale, we want to add OAuth via Google to our current method for authenticating and authorizing users. On a larger scale, we hope to add a live chat feature so that users can speak with a member of the Exchange team in real time.
 
 ## Stats
-**John:**
+**John**
 ![John](https://wakatime.com/share/@c7f195de-5dfc-4305-9fe2-dd9b563f269a/b9b61c6f-4224-4adb-ae49-bea2471735ae.png)
