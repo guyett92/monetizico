@@ -47,3 +47,5 @@ On a larger scale, we want to allow users to upload multiple photos of products 
 ![John](https://wakatime.com/share/@c7f195de-5dfc-4305-9fe2-dd9b563f269a/b9b61c6f-4224-4adb-ae49-bea2471735ae.png)
 **Aaron**
 ![Aaron](https://wakatime.com/share/@217ac902-409e-4248-9990-006962992dc1/6b0bc798-fbe3-4d72-8977-554ff80b6175.svg)
+**Tiya**
+![Tiya]("https://wakatime.com/share/@18841220-394b-4873-810c-a1a3b7c3c726/df9f49ee-e8d4-4afb-87d7-d750ec547575.svg)
