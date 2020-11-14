@@ -100,3 +100,13 @@ body {
 .is-info {
     background-color: var(--lblue) !important;
 }
+
+.product_photo {
+    transition: 250ms;
+}
+  
+.product_photo:hover {
+    margin: 0 20px;
+    transform: scale(1.2)
+    /* border: solid var(--lblue) 10px; */
+  }
