@@ -39,7 +39,7 @@
                 <div class="tile is-parent is-vertical is-3">
                     <div class="tile is-child">
                         <figure class="image is-1by1">
-                            <a href="{% url 'post_detail' post.id %}"><img class="is-rounded" src="{{ post.product.photo.url }}" alt="Photo of product"></a>
+                            <a href="{% url 'post_detail' post.id %}"><img class="product_photo" src="{{ post.product.photo.url }}" alt="Photo of product"></a>
                         </figure>
                         <div>
                             <h5 class="has-text-centered is-uppercase has-text-weight-bold">{{ post.product.name }} - ${{ post.product.price|floatformat:2 }}</h5>
