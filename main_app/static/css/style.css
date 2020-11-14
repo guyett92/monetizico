@@ -46,6 +46,12 @@ body {
   color: var(--dblue) !important;
 }
 
+#carterror-message {
+  text-align: justify;
+  font-size: 50px;
+  margin: 0 auto;
+}
+
 .content {
   flex-grow: 1;
 }

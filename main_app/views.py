@@ -151,11 +151,17 @@ def cart(request):
   return render(request, 'cart.html')
 
 def create_cart(request, post_id):
-  cart = Cart(user=request.user)
-  cart.save()
-  cart.posts.add(post_id)
-  cart.save()
-  return redirect('cart')
+  if request.user.is_authenticated:
+    cart = Cart(user=request.user)
+    cart.save()
+    cart.posts.add(post_id)
+    cart.save()
+    return redirect('cart')
+  else:
+    return redirect('carterror')
+  
+def carterror(request):
+  return render(request, 'carterror.html')
 
 def add_to_cart(request, cart_id, post_id):
   Cart.objects.get(id=cart_id).posts.add(post_id)
