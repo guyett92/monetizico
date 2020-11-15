@@ -29,4 +29,5 @@ urlpatterns = [
     path('successemail/', successView, name='successemail'),
     path('search/', SearchResultsView.as_view(template_name='post_list.html'), name='post_list'),
     path('tags/', TagSearchView.as_view(template_name='tag_search.html'), name='tag_search'),
+    path('carterror/', views.carterror, name='carterror'),
 ]

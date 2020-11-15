@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import environ
-import django_heroku
+# import django_heroku
 
 
 env = environ.Env()
@@ -166,4 +166,4 @@ AWS_S3_MAX_AGE_SECONDS_CACHED_STATIC = 60 * 60 * 24 * 265
 DEFAULT_FROM_EMAIL = 'tgallegosslp@gmail.com'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-django_heroku.settings(locals())
+# django_heroku.settings(locals())
